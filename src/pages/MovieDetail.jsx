@@ -1,9 +1,15 @@
-import React from 'react'
+import React from 'react';
+import { useParams } from 'react-router-dom';
 
-function MovieDetail() {
-  return (
-    <div>MovieDetail</div>
-  )
-}
+const MovieDetail = () => {
+	// const { id } = useParams();
 
-export default MovieDetail
+	return (
+		<div>
+			<h1>Movie Detail for movie ID:</h1>
+			{/* Render thông tin chi tiết phim ở đây */}
+		</div>
+	);
+};
+
+export default MovieDetail;
