@@ -9,11 +9,12 @@ module.exports = withMT({
     extend: {},
     colors: {
       'bgColorMain': '#ffffff',
-      'bgColorBlock': '#e5e5e5',
+      'bgColorBlock': '#131313',
       'textMain': '#464646',
       'hoverNavBar': '#363638',
       'active': '#EBEAF1',
-      'buttonColor': '#ff0000'
+      'buttonColor': '#ff0000',
+
     }
   },
   plugins: [],
