@@ -14,7 +14,7 @@ const Footer = () => {
           sx={{ height: "max-content", paddingBottom: "2rem" }}
         >
           <Logo/>
-          <Stack spacing={2} direction={{ md: "column" }}>
+          <Stack spacing={2} direction={{ md: "column" }} >
             <Typography>Về FilmPlay</Typography>
             <Typography>Giới thiệu</Typography>
             <Typography>Các gói dịch vụ</Typography>

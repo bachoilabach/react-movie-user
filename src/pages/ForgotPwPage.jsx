@@ -1,5 +1,7 @@
-import Header from "../components/common/Header";
-import ForgotPw from "../components/common/ForgotPw";
+
+
+import ForgotPw from "../components/ForgotPw";
+import HeaderForm from "../components/HeaderForm";
 import background from "../img/background.jpg";
 
 export default function LoginPage() {
@@ -13,7 +15,7 @@ export default function LoginPage() {
         />
         <div className="min-h-full h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 C">
           <div className="max-w-md w-full space-y-8 p-4 bg-black rounded-2xl shadow-2xl z-10">
-            <Header
+            <HeaderForm
               heading="Reset password"
               paragraph="Don't have an account yet? "
               linkName="Signup"

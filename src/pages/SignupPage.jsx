@@ -1,5 +1,5 @@
-import Header from "../components/common/Header";
-import Signup from "../components/common/SignUp";
+import HeaderForm from "../components/HeaderForm";
+import Signup from "../components/SignUp";
 import background from "../img/background.jpg";
 
 export default function SignupPage() {
@@ -13,7 +13,7 @@ export default function SignupPage() {
         />
         <div className="min-h-full h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 C">
           <div className="max-w-md w-full space-y-8 p-4 bg-black rounded-2xl shadow-2xl z-10">
-            <Header
+            <HeaderForm
               heading="Signup to create an account"
               paragraph="Already have an account? "
               linkName="Login"
