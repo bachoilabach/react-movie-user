@@ -10,7 +10,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 const main = [
   {
     display: "Trang chủ",
-    path: "/",
+    path: "/main/home",
     icon: <HomeOutlinedIcon />,
     state: "home"
   },
