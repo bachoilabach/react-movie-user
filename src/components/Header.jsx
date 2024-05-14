@@ -60,7 +60,7 @@ const Header = () => {
           {/* user menu */}
           <Stack spacing={3} direction="row" alignItems="center">
             {
-              <Button sx={{ bgcolor: "#ff0000" }} variant="contained">
+              <Button className="bg-buttonColor" variant="contained">
                 Đăng nhập
               </Button>
             }

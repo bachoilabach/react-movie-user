@@ -12,7 +12,8 @@ module.exports = withMT({
       'bgColorBlock': '#e5e5e5',
       'textMain': '#464646',
       'hoverNavBar': '#363638',
-      'active': '#EBEAF1'
+      'active': '#EBEAF1',
+      'buttonColor': '#ff0000'
     }
   },
   plugins: [],
