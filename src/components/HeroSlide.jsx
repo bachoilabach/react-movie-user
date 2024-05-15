@@ -40,17 +40,16 @@ const staticMovies = [
 const HeroSlide = () => {
 	return (
 		<Box sx={{ position: 'relative' }}>
-			<Swiper grabCursor={true} loop={true} style={{ width: '100%' }}>
+			<Swiper grabCursor={true} loop={true} style={{ width: '100%', backgroundColor: 'black'}}>
 				{staticMovies.map((movie) => (
 					<SwiperSlide key={movie.id}>
 						<Box
 							sx={{
 								paddingTop: '56.25%', // Aspect ratio of 16:9
 								backgroundPosition: 'center',
-								backgroundSize: 'cover',
-								backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 1) 100%), url(${movie.backdrop_path})`,
+								backgroundSize: 'contain',
+								backgroundImage: `linear-gradient(to right, rgba(0, 0, 0, 0.7) 5%, rgba(0, 0, 0, 0) 12%), linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 100%), url(${movie.backdrop_path})`,
 								position: 'relative',
-								clipPath: 'polygon(0 0, 100% 0, 100% 87%, 0 87%)',
 							}}>
 							<Box
 								sx={{
