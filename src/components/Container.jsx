@@ -1,40 +1,36 @@
-import { Box, Stack, Typography } from '@mui/material';
 import React from 'react';
+import { Typography } from '@mui/material';
+import { styled } from '@mui/material/styles';
 
-const Container = ({ header, children }) => {
-  return (
-    <Box sx={{
-      marginTop: "5rem",
-      marginX: "auto",
-      color: "white"
-    }}>
-      <Stack spacing={4}>
-        {header && (
-          <Box sx={{
-            position: "relative",
-            paddingX: { xs: "20px", md: 0 },
-            maxWidth: "1366px",
-            marginX: "auto",
-            width: "100%",
-            "&::before": {
-              content: '""',
-              position: "absolute",
-              left: { xs: "20px", md: "0" },
-              top: "100%",
-              height: "1px",
-              width: "100%",
-              backgroundColor: "red"
-            }
-          }}>
-            <Typography variant="h5" fontWeight="700" textTransform="uppercase">
-              {header}
-            </Typography>
-          </Box>
-        )}
-        {children}
-      </Stack>
-    </Box>
-  );
-};
+const HeaderTypography = styled(Typography)(({ theme }) => ({
+	position: 'relative',marginBottom: '10px',
+	'&::before': {
+		content: '""',
+		position: 'absolute',
+		bottom: '-4px', // Adjust the position as needed
+		left: 0,
+		width: '120px', // Adjust the width as needed
+		height: '4px', // Adjust the height as needed
+		backgroundColor: '#ff0000', // Red color
+		borderRadius: '2px', // Optional: add rounded corners
+	},
+}));
+
+function Container({ header, children }) {
+	return (
+		<div>
+			<HeaderTypography
+				variant="h5"
+				fontWeight="700"
+				textTransform="uppercase"
+				color={'white'}>
+				{header}
+			</HeaderTypography>
+			<div>
+                {children}
+            </div>
+		</div>
+	);
+}
 
 export default Container;
