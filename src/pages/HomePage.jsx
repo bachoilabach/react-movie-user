@@ -1,12 +1,31 @@
-import React from 'react'
-import  HeroSlide  from '../components/HeroSlide'
+import React from 'react';
+import HeroSlide from '../components/HeroSlide';
+import Container from '../components/Container';
+import MediaSlider from '../components/MediaSlider';
 
 function HomePage() {
-  return (
-    <>
-    <HeroSlide />
-    </>
-  )
+	return (
+		<>
+			<HeroSlide />
+      <div className='bg-black px-52'>
+        <Container header={'Phim phổ biến'}>
+          <MediaSlider/>
+        </Container>
+
+        <Container header={'Series Phổ biến'}>
+          <MediaSlider/>
+        </Container>
+
+        <Container header={'Phim được đánh giá cao'}>
+          <MediaSlider/>
+        </Container>
+
+        <Container header={'Series được đánh giá cao'}>
+          <MediaSlider/>
+        </Container>
+      </div>
+		</>
+	);
 }
 
-export default HomePage
+export default HomePage;
