@@ -1,9 +1,11 @@
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
-import { Box, Button, Chip, Divider, Stack, Typography } from '@mui/material';
+import { Box, Button, Stack, Typography, alpha } from '@mui/material';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 
 import CircularRate from './CircularRate';
+import { useEffect, useState } from 'react';
+import { handleGetMovieByImdb } from '../services/movieService.js';
 
 // Mô phỏng dữ liệu bộ phim
 const staticMovies = [
@@ -38,9 +40,27 @@ const staticMovies = [
 ];
 
 const HeroSlide = () => {
+	const [movies, setMovies] = useState([]);
+
+	const fetchMovie = async () => {
+		try {
+			let response = await handleGetMovieByImdb();
+			console.log(response.movies);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	useEffect(() => {
+		fetchMovie();
+	}, []);
+
 	return (
 		<Box sx={{ position: 'relative' }}>
-			<Swiper grabCursor={true} loop={true} style={{ width: '100%', backgroundColor: 'black'}}>
+			<Swiper
+				grabCursor={true}
+				loop={true}
+				style={{ width: '100%', backgroundColor: 'black' }}>
 				{staticMovies.map((movie) => (
 					<SwiperSlide key={movie.id}>
 						<Box
@@ -66,7 +86,7 @@ const HeroSlide = () => {
 								<Stack spacing={4} direction="column">
 									<Typography
 										variant="h4"
-										sx={{fontSize: '50px'}}
+										sx={{ fontSize: '50px' }}
 										fontWeight="600"
 										color={'white'}>
 										{movie.title}
@@ -80,7 +100,10 @@ const HeroSlide = () => {
 										</div>
 									</Stack>
 
-									<Typography variant="body1" color={'white'} className='w-3/5 '>
+									<Typography
+										variant="body1"
+										color={'white'}
+										className="w-3/5 ">
 										{movie.overview}
 									</Typography>
 
@@ -90,8 +113,13 @@ const HeroSlide = () => {
 										startIcon={<PlayArrowIcon />}
 										// component={Link}
 										// to={routesGen.mediaDetail(mediaType, movie.id)}
-										sx={{backgroundColor: '#ff0000', width: '130px'}}
-									>
+										sx={{
+											backgroundColor: '#ff0000',
+											width: '130px',
+											'&:hover': {
+												backgroundColor: alpha('#ff0000', 0.8),
+											},
+										}}>
 										Xem phim
 									</Button>
 								</Stack>
