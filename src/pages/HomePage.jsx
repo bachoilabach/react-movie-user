@@ -9,19 +9,15 @@ function HomePage() {
 			<HeroSlide />
       <div className='bg-black px-52'>
         <Container header={'Phim phổ biến'}>
-          <MediaSlider/>
+          <MediaSlider title = {'Phim mới ra mắt'}/>
         </Container>
 
-        <Container header={'Series Phổ biến'}>
-          <MediaSlider/>
+        <Container header={'Phim mới ra mắt'}>
+          <MediaSlider title = {'Phim mới ra mắt'}/>
         </Container>
 
         <Container header={'Phim được đánh giá cao'}>
-          <MediaSlider/>
-        </Container>
-
-        <Container header={'Series được đánh giá cao'}>
-          <MediaSlider/>
+          <MediaSlider title={'Phim được đánh giá cao'}/>
         </Container>
       </div>
 		</>

@@ -1,51 +1,39 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import MediaItem from './MediaItem';
-import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
-import { Button } from '@mui/material';
-const movies = [
-	{
-		title: 'Godzilla x Kong: The New Empire',
-		releaseDate: '2024',
-		score: '8',
-		imgUrl: 'https://image.tmdb.org/t/p/w500/tMefBSflR6PGQLv7WvFPpKLZkyk.jpg',
-	},
-	{
-		title: 'Godzilla x Kong: The New Empire',
-		releaseDate: '2024',
-		score: '8',
-		imgUrl: 'https://image.tmdb.org/t/p/w500/tMefBSflR6PGQLv7WvFPpKLZkyk.jpg',
-	},
-	{
-		title: 'Godzilla x Kong: The New Empire',
-		releaseDate: '2024',
-		score: '8',
-		imgUrl: 'https://image.tmdb.org/t/p/w500/tMefBSflR6PGQLv7WvFPpKLZkyk.jpg',
-	},
-	{
-		title: 'Godzilla x Kong: The New Empire',
-		releaseDate: '2024',
-		score: '8',
-		imgUrl: 'https://image.tmdb.org/t/p/w500/tMefBSflR6PGQLv7WvFPpKLZkyk.jpg',
-	},
-	{
-		title: 'Godzilla x Kong: The New Empire',
-		releaseDate: '2024',
-		score: '8',
-		imgUrl: 'https://image.tmdb.org/t/p/w500/tMefBSflR6PGQLv7WvFPpKLZkyk.jpg',
-	},
-];
 
-const MediaSlider = () => {
+import { handleGetMovieByImdb, handleGteMovieByRelease } from '../services/movieService';
+
+const MediaSlider = ({title}) => {
+	const [movies, setMovies] = useState([]);
+	const fetchMovie = async () => {
+		try {
+			if (title === 'Phim được đánh giá cao') {
+				let response = await handleGetMovieByImdb();
+				setMovies(response.movies);
+			}
+			if(title === 'Phim mới ra mắt'){
+				let response = await handleGteMovieByRelease();
+				setMovies(response.movies)
+			}
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	useEffect(() => {
+		fetchMovie();
+	}, [title]);
+
 	return (
 		<div className="flex gap-5 ml-2 ">
 			{movies.map((movie, index) => (
 				<MediaItem
 					key={index}
-					imgUrl={movie.imgUrl}
-					score={movie.score}
+					imgUrl={movie.background}
+					score={movie.imdb}
 					title={movie.title}
-					releaseDate={movie.releaseDate}
+					releaseDate={movie.release}
 				/>
 			))}
 		</div>

@@ -5,39 +5,10 @@ import 'swiper/css';
 
 import CircularRate from './CircularRate';
 import { useEffect, useState } from 'react';
-import { handleGetMovieByImdb } from '../services/movieService.js';
-
-// Mô phỏng dữ liệu bộ phim
-const staticMovies = [
-	{
-		id: 1,
-		title: 'Tên phim',
-		backdrop_path:
-			'https://image.tmdb.org/t/p/original/6a3aiSYNqABoV1Fq8n10LMOBxhH.jpg',
-		overview:
-			'Fast & Furious là một thương hiệu truyền hình tập trung vào một loạt các bộ phim hành động chủ yếu liên quan đến đua xe đường phố bất hợp pháp, trộm cắp và gián điệp.',
-		vote_average: 8.5,
-		genre: 'Hành động',
-	},
-	{
-		id: 1,
-		title: 'Tên phim',
-		backdrop_path:
-			'https://image.tmdb.org/t/p/original/6a3aiSYNqABoV1Fq8n10LMOBxhH.jpg',
-		overview: 'Mô tả... ',
-		vote_average: 8.5,
-		genre: 'Hài hước',
-	},
-	{
-		id: 1,
-		title: 'Tên phim',
-		backdrop_path:
-			'https://image.tmdb.org/t/p/original/6a3aiSYNqABoV1Fq8n10LMOBxhH.jpg',
-		overview: 'Mô tả...',
-		vote_average: 8.5,
-		genre: 'Phiêu lưu',
-	},
-];
+import {
+	getAllMovies,
+	handleGetMovieByImdb,
+} from '../services/movieService.js';
 
 const HeroSlide = () => {
 	const [movies, setMovies] = useState([]);
@@ -45,9 +16,17 @@ const HeroSlide = () => {
 	const fetchMovie = async () => {
 		try {
 			let response = await handleGetMovieByImdb();
-			console.log(response.movies);
+			setMovies(response.movies);
 		} catch (error) {
 			console.log(error);
+		}
+	};
+
+	const truncateDescription = (description, maxLength) => {
+		if (description.length <= maxLength) {
+			return description;
+		} else {
+			return description.slice(0, maxLength) + '...';
 		}
 	};
 
@@ -61,14 +40,14 @@ const HeroSlide = () => {
 				grabCursor={true}
 				loop={true}
 				style={{ width: '100%', backgroundColor: 'black' }}>
-				{staticMovies.map((movie) => (
+				{movies.map((movie) => (
 					<SwiperSlide key={movie.id}>
 						<Box
 							sx={{
 								paddingTop: '56.25%', // Aspect ratio of 16:9
 								backgroundPosition: 'center',
-								backgroundSize: 'contain',
-								backgroundImage: `linear-gradient(to right, rgba(0, 0, 0, 0.7) 5%, rgba(0, 0, 0, 0) 12%), linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 100%), url(${movie.backdrop_path})`,
+								backgroundSize: 'cover',
+								backgroundImage: `linear-gradient(to right, rgba(0, 0, 0, 0.7) 5%, rgba(0, 0, 0, 0) 12%), linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 100%), url(${movie.thumbnail})`,
 								position: 'relative',
 							}}>
 							<Box
@@ -93,18 +72,15 @@ const HeroSlide = () => {
 									</Typography>
 
 									<Stack direction="row" spacing={2} alignItems="center">
-										<CircularRate value={movie.vote_average} />
+										<CircularRate value={movie.imdb} />
 
-										<div className="text-white text-xs p-2 bg-[#ff0000] rounded-2xl">
+										{/* <div className="text-white text-xs p-2 bg-[#ff0000] rounded-2xl">
 											{movie.genre}
-										</div>
+										</div> */}
 									</Stack>
 
-									<Typography
-										variant="body1"
-										color={'white'}
-										className="w-3/5 ">
-										{movie.overview}
+									<Typography variant="body1" color={'white'} className="w-3/5">
+										{truncateDescription(movie.description, 350)}
 									</Typography>
 
 									<Button

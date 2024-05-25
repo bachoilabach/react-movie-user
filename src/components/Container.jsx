@@ -3,7 +3,7 @@ import { Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
 const HeaderTypography = styled(Typography)(({ theme }) => ({
-	position: 'relative',marginTop: '20px', marginBottom: '20px',
+	position: 'relative', marginBottom: '20px',
 	'&::before': {
 		content: '""',
 		position: 'absolute',
