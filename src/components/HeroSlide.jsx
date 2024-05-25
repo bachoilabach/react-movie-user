@@ -5,10 +5,8 @@ import 'swiper/css';
 
 import CircularRate from './CircularRate';
 import { useEffect, useState } from 'react';
-import {
-	getAllMovies,
-	handleGetMovieByImdb,
-} from '../services/movieService.js';
+import { handleGetMovieByImdb } from '../services/movieService.js';
+import { Link } from 'react-router-dom';
 
 const HeroSlide = () => {
 	const [movies, setMovies] = useState([]);
@@ -17,6 +15,7 @@ const HeroSlide = () => {
 		try {
 			let response = await handleGetMovieByImdb();
 			setMovies(response.movies);
+			console.log(response.movies)
 		} catch (error) {
 			console.log(error);
 		}
@@ -41,7 +40,7 @@ const HeroSlide = () => {
 				loop={true}
 				style={{ width: '100%', backgroundColor: 'black' }}>
 				{movies.map((movie) => (
-					<SwiperSlide key={movie.id}>
+					<SwiperSlide key={movie.movieID}>
 						<Box
 							sx={{
 								paddingTop: '56.25%', // Aspect ratio of 16:9
@@ -73,10 +72,6 @@ const HeroSlide = () => {
 
 									<Stack direction="row" spacing={2} alignItems="center">
 										<CircularRate value={movie.imdb} />
-
-										{/* <div className="text-white text-xs p-2 bg-[#ff0000] rounded-2xl">
-											{movie.genre}
-										</div> */}
 									</Stack>
 
 									<Typography variant="body1" color={'white'} className="w-3/5">
@@ -87,8 +82,8 @@ const HeroSlide = () => {
 										variant="contained"
 										size="medium"
 										startIcon={<PlayArrowIcon />}
-										// component={Link}
-										// to={routesGen.mediaDetail(mediaType, movie.id)}
+										component={Link}
+										to={`/movie/${movie.movieID}`}
 										sx={{
 											backgroundColor: '#ff0000',
 											width: '130px',

@@ -10,11 +10,12 @@ import {
 	Typography,
 	alpha,
 } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import menuConfigs from '../config/menu.configs';
 import Logo from './Logo';
 
 const Header = () => {
+	const navigate = useNavigate();
 	const [selectedIndex, setSelectedIndex] = useState(0);
 	const [scrolled, setScrolled] = useState(false);
 
@@ -71,7 +72,10 @@ const Header = () => {
 								component={Link}
 								to={item.path}
 								variant="text"
-								onClick={() => handleButtonClick(index)}
+								onClick={() => {
+									handleButtonClick(index);
+									navigate(item.path)
+								}}
 								style={{
 									backgroundColor:
 										selectedIndex === index ? 'red' : 'transparent',
