@@ -2,13 +2,15 @@ import React, { useEffect, useState } from "react";
 
 import { Box, Typography, Stack } from "@mui/material";
 import Container from "../components/Container";
+import CastSliderMovie from "../components/CastSliderMovie";
 // import { avatar } from "@material-tailwind/react";
 
 const actors = [
   {
     id: 1,
-    name: "Tom Hanks",
-    birthday: "1956-07-09",
+    name: "Zendaya",
+    birthday: "1996-09-01",
+    national: "United States",
     description:
       "Thomas Jeffrey Hanks is an American actor and filmmaker. Known for both his comedic and dramatic roles, Hanks is one of the most popular and recognizable film stars worldwide, and is widely regarded as an American cultural icon.",
     avatar: "path",
@@ -24,13 +26,20 @@ function ActorDetail() {
 
   return (
     <>
-      <Box sx={{ maxWidth: "100%", margin: "auto", padding: "100px", backgroundColor: "black", color: "white"}}
-      
+      <Box
+        sx={{
+          maxWidth: "100%",
+          margin: "auto",
+          padding: "100px",
+          backgroundColor: "black",
+          color: "white",
+        }}
       >
         <Box
           sx={{
             position: "relative",
             display: "flex",
+            marginBottom: "32px",
             flexDirection: { xs: "column", md: "row" },
           }}
         >
@@ -56,18 +65,21 @@ function ActorDetail() {
             }}
           >
             <Stack spacing={2}>
-              <Typography variant="h5" fontWeight="700">
-                {`${actor.name} (${
-                  actor.birthday && actor.birthday.split("-")[0]
-                }`}{")"}
+              <Typography variant="h3" fontWeight="700">
+                {actor.name}
               </Typography>
-              <Typography>
-                {actor.description}
+              <Typography variant="h6" fontWeight="700">
+                Ngày sinh: {actor.birthday}
               </Typography>
+              <Typography variant="h6" fontWeight="700">
+                Nơi sinh: {actor.national}
+              </Typography>
+              <Typography>{actor.description}</Typography>
             </Stack>
           </Box>
         </Box>
-        <Container header="medias">
+        <Container header="Các phim đã tham gia">
+          <CastSliderMovie />
         </Container>
       </Box>
     </>

@@ -63,7 +63,7 @@ const Header = () => {
 								key={index}
 								component={Link}
 								to={item.path}
-								variant="text"
+								variant="contained"
 								onClick={() => handleButtonClick(index)}
 								style={{
 									backgroundColor:
@@ -72,7 +72,7 @@ const Header = () => {
 								<Typography
 									className="text-white"
 									fontWeight={600}
-									sx={{ fontSize: '13px' }}>
+									sx={{ fontSize: '14px' }}>
 									{item.display}
 								</Typography>
 							</Button>

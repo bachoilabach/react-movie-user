@@ -6,8 +6,10 @@ import LoginPage from '../src/pages/LoginPage';
 import SignupPage from '../src/pages/SignupPage';
 import ForgotPwPage from '../src/pages/ForgotPwPage';
 import HomePage from './pages/HomePage';
+import SearchPage from './pages/SearchPage';
 import MovieDetail from './pages/MovieDetail';
 import ActorDetail from './pages/ActorDetail';
+
 
 function App() {
 	return (
@@ -20,6 +22,8 @@ function App() {
 					<Route index element={<HomePage />} />
 					<Route path="/movie" element={<MovieDetail />} />
 					<Route path="/actor" element={<ActorDetail />} />
+					<Route path="/search" element={<SearchPage />} />
+
 				</Route>
 				<Route path="*" element={<NotFound />} />
 			</Routes>

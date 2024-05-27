@@ -1,8 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import MediaItem from './MediaItem';
-import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
-import { Button } from '@mui/material';
 const movies = [
 	{
 		title: 'Godzilla x Kong: The New Empire',
@@ -38,7 +36,7 @@ const movies = [
 
 const MediaSlider = () => {
 	return (
-		<div className="flex gap-5 ml-2 ">
+		<div className="flex">
 			{movies.map((movie, index) => (
 				<MediaItem
 					key={index}

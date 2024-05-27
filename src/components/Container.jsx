@@ -3,13 +3,13 @@ import { Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
 const HeaderTypography = styled(Typography)(({ theme }) => ({
-	position: 'relative',marginTop: '20px', marginBottom: '20px',
+	position: 'relative',
 	'&::before': {
 		content: '""',
 		position: 'absolute',
 		bottom: '-4px', // Adjust the position as needed
 		left: 0,
-		width: '120px', // Adjust the width as needed
+		width: '20%', // Adjust the width as needed
 		height: '4px', // Adjust the height as needed
 		backgroundColor: '#ff0000', // Red color
 		borderRadius: '2px', // Optional: add rounded corners
