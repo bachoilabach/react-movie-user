@@ -10,7 +10,7 @@ const getAllMovies = (id) => {
 	});
 };
 
-const handleGteMovieByRelease = () => {
+const handleGetMovieByRelease = () => {
 	return axios.get('/api/movie/get-movies-by-release');
 };
 
@@ -32,11 +32,18 @@ const getAllActorsMovie = (id) => {
 	});
 };
 
+const getMoviesByActorID = (id)=>{
+	return axios.get(`/api/movie/get-movies-actorID?id=${id}`,{
+		actorID: id
+	})
+}
+
 export {
 	handleGetMovieByImdb,
 	getAllMovies,
-	handleGteMovieByRelease,
+	handleGetMovieByRelease,
 	getAllDirectorsMovie,
 	getAllCountries,
-	getAllActorsMovie
+	getAllActorsMovie,
+	getMoviesByActorID,
 };

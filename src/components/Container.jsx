@@ -18,7 +18,7 @@ const HeaderTypography = styled(Typography)(({ theme }) => ({
 
 function Container({ header, children }) {
 	return (
-		<div>
+		<div className=''>
 			<HeaderTypography
 				variant="h5"
 				fontWeight="700"

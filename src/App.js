@@ -21,9 +21,8 @@ function App() {
 				<Route path="/" element={<MainLayout />}>
 					<Route index element={<HomePage />} />
 					<Route path="/movie/:id" element={<MovieDetail />} />
-					<Route path="/actor" element={<ActorDetail />} />
+					<Route path="/actor/:id" element={<ActorDetail />} />
 					<Route path="/search" element={<SearchPage />} />
-
 				</Route>
 				<Route path="*" element={<NotFound />} />
 			</Routes>

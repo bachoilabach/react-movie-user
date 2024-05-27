@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import MediaItem from './MediaItem';
 import 'react-multi-carousel/lib/styles.css';
 
-import { handleGetMovieByImdb, handleGteMovieByRelease } from '../services/movieService';
+import { handleGetMovieByImdb, handleGetMovieByRelease } from '../services/movieService';
 
 const MediaSlider = ({title}) => {
 	const [movies, setMovies] = useState([]);
@@ -13,7 +13,7 @@ const MediaSlider = ({title}) => {
 				setMovies(response.movies);
 			}
 			if(title === 'Phim mới ra mắt'){
-				let response = await handleGteMovieByRelease();
+				let response = await handleGetMovieByRelease();
 				setMovies(response.movies)
 			}
 		} catch (error) {

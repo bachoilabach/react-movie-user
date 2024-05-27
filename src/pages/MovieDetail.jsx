@@ -3,7 +3,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import { useEffect, useState } from 'react';
 
-import { Box, Button, Divider, Stack, Typography } from '@mui/material';
+import { Box, Button, Divider, Stack, Typography, alpha } from '@mui/material';
 
 import CircularRate from '../components/CircularRate';
 import Container from '../components/Container';
@@ -12,7 +12,7 @@ import MovieComment from './MovieComment';
 import uiConfigs from '../config/ui.configs';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import {
 	getAllActorsMovie,
 	getAllCountries,
@@ -21,84 +21,9 @@ import {
 } from '../services/movieService';
 import { getAllDirectors } from '../services/directorService';
 import { getAllActors } from '../services/actorService';
-const staticCast = [
-	{
-		id: 'cast_member_1',
-		role: 'Unknown',
-		thumbnail_url:
-			'https://image.tmdb.org/t/p/w500/tgCkGE0LIggyjMmgSwHhpZAkfJs.jpg',
-	},
-	{
-		id: 'cast_member_2',
-		role: 'Unknown',
-		thumbnail_url:
-			'https://image.tmdb.org/t/p/w500/tgCkGE0LIggyjMmgSwHhpZAkfJs.jpg',
-	},
-	{
-		id: 'cast_member_3',
-		role: 'Unknown',
-		thumbnail_url:
-			'https://image.tmdb.org/t/p/w500/tgCkGE0LIggyjMmgSwHhpZAkfJs.jpg',
-	},
-	{
-		id: 'cast_member_4',
-		role: 'Unknown',
-		thumbnail_url:
-			'https://image.tmdb.org/t/p/w500/tgCkGE0LIggyjMmgSwHhpZAkfJs.jpg',
-	},
-	{
-		id: 'cast_member_1',
-		role: 'Unknown',
-		thumbnail_url:
-			'https://image.tmdb.org/t/p/w500/tgCkGE0LIggyjMmgSwHhpZAkfJs.jpg',
-	},
-	{
-		id: 'cast_member_2',
-		role: 'Unknown',
-		thumbnail_url:
-			'https://image.tmdb.org/t/p/w500/tgCkGE0LIggyjMmgSwHhpZAkfJs.jpg',
-	},
-	{
-		id: 'cast_member_3',
-		role: 'Unknown',
-		thumbnail_url:
-			'https://image.tmdb.org/t/p/w500/tgCkGE0LIggyjMmgSwHhpZAkfJs.jpg',
-	},
-	{
-		id: 'cast_member_4',
-		role: 'Unknown',
-		thumbnail_url:
-			'https://image.tmdb.org/t/p/w500/tgCkGE0LIggyjMmgSwHhpZAkfJs.jpg',
-	},
-	{
-		id: 'cast_member_1',
-		role: 'Unknown',
-		thumbnail_url:
-			'https://image.tmdb.org/t/p/w500/tgCkGE0LIggyjMmgSwHhpZAkfJs.jpg',
-	},
-	{
-		id: 'cast_member_2',
-		role: 'Unknown',
-		thumbnail_url:
-			'https://image.tmdb.org/t/p/w500/tgCkGE0LIggyjMmgSwHhpZAkfJs.jpg',
-	},
-	{
-		id: 'cast_member_3',
-		role: 'Unknown',
-		thumbnail_url:
-			'https://image.tmdb.org/t/p/w500/tgCkGE0LIggyjMmgSwHhpZAkfJs.jpg',
-	},
-	{
-		id: 'cast_member_4',
-		role: 'Unknown',
-		thumbnail_url:
-			'https://image.tmdb.org/t/p/w500/tgCkGE0LIggyjMmgSwHhpZAkfJs.jpg',
-	},
-];
 
 const MediaDetail = () => {
 	const { id } = useParams();
-	const [cast, setCast] = useState(staticCast);
 	const [movie1, setMovie1] = useState({});
 	const [director, setDirector] = useState();
 	const [country, setCountry] = useState();
@@ -137,7 +62,6 @@ const MediaDetail = () => {
 			// Flatten the array if getAllActors returns arrays
 			const flattenedActors = actorsDetails.flat();
 			setActors(flattenedActors);
-
 		} catch (error) {
 			console.log(error);
 		}
@@ -203,6 +127,7 @@ const MediaDetail = () => {
 									backgroundPosition: 'center',
 									backgroundColor: 'darkgrey',
 									backgroundImage: `url(${movie1.background})`,
+									borderRadius: '8px',
 								}}
 							/>
 						</Box>
@@ -257,6 +182,7 @@ const MediaDetail = () => {
 										sx={{
 											width: 'max-content',
 											'& .MuiButon-starIcon': { marginRight: '0' },
+											color: '#ff0000'
 										}}
 										size="large"
 										startIcon={
@@ -279,9 +205,13 @@ const MediaDetail = () => {
                   > */}
 									<Button
 										variant="contained"
-										sx={{ width: 'max-content' }}
-										size="large"
-										startIcon={<PlayArrowIcon />}>
+										sx={{
+											fontSize: '13px',
+											backgroundColor: '#ff0000',
+											'&:hover': {
+												backgroundColor: alpha('#ff0000', 0.8),
+											},
+										}}>
 										Xem ngay
 									</Button>
 									{/* </Link> */}
@@ -304,32 +234,33 @@ const MediaDetail = () => {
 											style={{ width: '100%', height: 'max-content' }}>
 											{actors.map((actor, index) => (
 												<SwiperSlide key={index}>
-													{/* <Link to={routesGen.person(cast.id)}> */}
-													<Box
-														sx={{
-															paddingTop: '120%',
-															color: 'text.primary',
-															position: 'relative',
-															backgroundSize: 'cover',
-															backgroundPosition: 'center',
-															backgroundColor: 'darkgrey',
-															backgroundImage: `url(${actor.image})`,
-														}}>
+													<Link to={`/actor/${actor.actorID}`}>
 														<Box
 															sx={{
-																position: 'absolute',
-																width: '100%',
-																height: 'max-content',
-																bottom: 0,
-																padding: '8px',
-																backgroundColor: 'rgba(0,0,0,0.6)',
+																paddingTop: '120%',
+																color: 'text.primary',
+																position: 'relative',
+																backgroundSize: 'cover',
+																backgroundPosition: 'center',
+																backgroundColor: 'darkgrey',
+																backgroundImage: `url(${actor.image})`,
+																borderRadius: '8px',
 															}}>
-															<Typography className="text-white">
-																{actor.name}
-															</Typography>
+															<Box
+																sx={{
+																	position: 'absolute',
+																	width: '100%',
+																	height: 'max-content',
+																	bottom: 0,
+																	padding: '8px',
+																	backgroundColor: 'rgba(0,0,0,0.6)',
+																}}>
+																<Typography className="text-white">
+																	{actor.name}
+																</Typography>
+															</Box>
 														</Box>
-													</Box>
-													{/* </Link> */}
+													</Link>
 												</SwiperSlide>
 											))}
 										</Swiper>
