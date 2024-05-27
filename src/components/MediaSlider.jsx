@@ -26,7 +26,7 @@ const MediaSlider = ({title}) => {
 	}, [title]);
 
 	return (
-		<div className="flex">
+		<div className="flex gap-5 ml-5">
 			{movies.map((movie, index) => (
 				<MediaItem
 					key={index}
