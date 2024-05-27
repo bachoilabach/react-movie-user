@@ -34,6 +34,7 @@ const MediaSlider = ({title}) => {
 					score={movie.imdb}
 					title={movie.title}
 					releaseDate={movie.release}
+					movieID={movie.movieID}
 				/>
 			))}
 		</div>

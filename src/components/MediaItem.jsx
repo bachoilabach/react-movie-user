@@ -2,8 +2,10 @@ import { Button } from '@mui/material';
 import React from 'react';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import CircularRate from './CircularRate';
+import { useNavigate } from 'react-router-dom';
 
-function MediaItem({ imgUrl, score, releaseDate, title }) {
+function MediaItem({ imgUrl, score, releaseDate, title, movieID }) {
+	const navigate = useNavigate()
 	const releaseYear = (releaseDate) => {
 		if (releaseDate) {
 			const year = releaseDate.split('-')[0];
@@ -19,7 +21,9 @@ function MediaItem({ imgUrl, score, releaseDate, title }) {
             "
 			style={{
 				backgroundImage: `url(${imgUrl})`,
-			}}>
+			}}
+			onClick={()=>navigate(`/movie/${movieID}`)}
+			>
 			<div></div>
 			<div className="opacity-0 group-hover:opacity-100">
 				<Button

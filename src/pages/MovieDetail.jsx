@@ -13,7 +13,14 @@ import uiConfigs from '../config/ui.configs';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { useParams } from 'react-router-dom';
-import { getAllMovies } from '../services/movieService';
+import {
+	getAllActorsMovie,
+	getAllCountries,
+	getAllDirectorsMovie,
+	getAllMovies,
+} from '../services/movieService';
+import { getAllDirectors } from '../services/directorService';
+import { getAllActors } from '../services/actorService';
 const staticCast = [
 	{
 		id: 'cast_member_1',
@@ -92,19 +99,52 @@ const staticCast = [
 const MediaDetail = () => {
 	const { id } = useParams();
 	const [cast, setCast] = useState(staticCast);
-  const [movie1, setMovie1] = useState({})
+	const [movie1, setMovie1] = useState({});
+	const [director, setDirector] = useState();
+	const [country, setCountry] = useState();
+	const [actors, setActors] = useState([]);
 
 	const fetchMovieById = async () => {
 		try {
-      const response = await getAllMovies(id)
-      setMovie1(response.movies)
+			const response = await getAllMovies(id);
+			setMovie1(response.movies);
+
+			// * Director
+			const responseDirector = await getAllDirectorsMovie(id);
+			const directorsMovie = responseDirector.moviedirectors.map(
+				(director) => director.directorID
+			);
+			const responseDirectorsMovie = await getAllDirectors(directorsMovie);
+			setDirector(responseDirectorsMovie.directors.name);
+
+			// * Country
+			const responseCountry = await getAllCountries(response.movies.countryID);
+			setCountry(responseCountry.countries.countryName);
+
+			// * Actor
+			// Fetch actors for the movie
+			const responseActor = await getAllActorsMovie(id);
+			const actorIDs = responseActor.movieactors.map((actor) => actor.actorID);
+
+			// Fetch details for each actor concurrently
+			const actorsDetails = await Promise.all(
+				actorIDs.map(async (actorID) => {
+					const responseActorsMovie = await getAllActors(actorID);
+					return responseActorsMovie.actors; // Adjust this line if response is structured differently
+				})
+			);
+
+			// Flatten the array if getAllActors returns arrays
+			const flattenedActors = actorsDetails.flat();
+			setActors(flattenedActors);
+
 		} catch (error) {
-      console.log(error)
-    }
+			console.log(error);
+		}
 	};
 
 	useEffect(() => {
-    fetchMovieById()
+		fetchMovieById();
 	}, [id]);
 
 	return (
@@ -197,8 +237,8 @@ const MediaDetail = () => {
 								</Stack>
 								{/* rate and genres */}
 								<Stack spacing={1} direction="column">
-									<Typography variant="body1">Đạo diễn: Truongz</Typography>
-									<Typography variant="body1">Quốc gia: Viet Nam</Typography>
+									<Typography variant="body1">Đạo diễn: {director}</Typography>
+									<Typography variant="body1">Quốc gia: {country}</Typography>
 									<Typography variant="body1">{movie1.release}</Typography>
 								</Stack>
 
@@ -262,7 +302,7 @@ const MediaDetail = () => {
 											slidesPerView={'auto'}
 											grabCursor={true}
 											style={{ width: '100%', height: 'max-content' }}>
-											{cast.map((cast, index) => (
+											{actors.map((actor, index) => (
 												<SwiperSlide key={index}>
 													{/* <Link to={routesGen.person(cast.id)}> */}
 													<Box
@@ -273,7 +313,7 @@ const MediaDetail = () => {
 															backgroundSize: 'cover',
 															backgroundPosition: 'center',
 															backgroundColor: 'darkgrey',
-															backgroundImage: `url(${cast.thumbnail_url})`,
+															backgroundImage: `url(${actor.image})`,
 														}}>
 														<Box
 															sx={{
@@ -281,11 +321,11 @@ const MediaDetail = () => {
 																width: '100%',
 																height: 'max-content',
 																bottom: 0,
-																padding: '10px',
+																padding: '8px',
 																backgroundColor: 'rgba(0,0,0,0.6)',
 															}}>
 															<Typography className="text-white">
-																{cast.id}
+																{actor.name}
 															</Typography>
 														</Box>
 													</Box>
@@ -306,7 +346,10 @@ const MediaDetail = () => {
 				{/* media videos */}
 				<div className="pt-[2rem]">
 					<Container header="Trailer giới thiệu">
-            <div dangerouslySetInnerHTML={{ __html: movie1.html }} className='items-center'/>
+						<div
+							dangerouslySetInnerHTML={{ __html: movie1.html }}
+							className="items-center"
+						/>
 					</Container>
 				</div>
 				{/* media videos */}
