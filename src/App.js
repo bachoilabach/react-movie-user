@@ -20,7 +20,7 @@ function App() {
 				<Route path="/forgotpw" element={<ForgotPwPage />} />
 				<Route path="/" element={<MainLayout />}>
 					<Route index element={<HomePage />} />
-					<Route path="/movie" element={<MovieDetail />} />
+					<Route path="/movie/:id" element={<MovieDetail />} />
 					<Route path="/actor" element={<ActorDetail />} />
 					<Route path="/search" element={<SearchPage />} />
 
