@@ -36,6 +36,17 @@ const signupFields = [
 		customClass: 'bg-[#333333] text-white',
 	},
 	{
+		labelText: 'Full Name',
+		labelFor: 'fullName',
+		id: 'fullName',
+		name: 'fullName',
+		type: 'text',
+		autoComplete: 'fullName',
+		isRequired: true,
+		placeholder: 'Ex: Nguyen Van A',
+		customClass: 'bg-[#333333] text-white',
+	},
+	{
 		labelText: 'Password',
 		labelFor: 'password',
 		id: 'password',

@@ -2,9 +2,13 @@ import React, { useEffect, useState } from 'react';
 import MediaItem from './MediaItem';
 import 'react-multi-carousel/lib/styles.css';
 
-import { handleGetMovieByImdb, handleGetMovieByRelease } from '../services/movieService';
+import {
+	handleGetMovieByImdb,
+	handleGetMovieByRelease,
+} from '../services/movieService';
+import 'react-toastify/dist/ReactToastify.css';
 
-const MediaSlider = ({title}) => {
+const MediaSlider = ({ title }) => {
 	const [movies, setMovies] = useState([]);
 	const fetchMovie = async () => {
 		try {
@@ -12,9 +16,9 @@ const MediaSlider = ({title}) => {
 				let response = await handleGetMovieByImdb();
 				setMovies(response.movies);
 			}
-			if(title === 'Phim mới ra mắt'){
+			if (title === 'Phim mới ra mắt') {
 				let response = await handleGetMovieByRelease();
-				setMovies(response.movies)
+				setMovies(response.movies);
 			}
 		} catch (error) {
 			console.log(error);

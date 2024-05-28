@@ -12,10 +12,11 @@ const getAllUsers = (inputID) => {
 	});
 };
 
-const handleSignUpApi = (userEmail, userPassword, roleID) => {
+const handleSignUpApi = (userEmail, userPassword,userFullName, roleID) => {
 	return axios.post('/api/user/create-new-user', {
 		email: userEmail,
 		password: userPassword,
+		fullName: userFullName,
 		roleID: roleID,
 	});
 };

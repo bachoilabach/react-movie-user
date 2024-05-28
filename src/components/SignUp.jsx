@@ -4,6 +4,7 @@ import FormAction from "./FormAction";
 import Input from "./InputAuth";
 import { useNavigate } from "react-router-dom";
 import { handleSignUpApi } from "../services/userService";
+import { toast } from "react-toastify";
 
 const fields = signupFields;
 let fieldsState = {};
@@ -20,7 +21,6 @@ export default function Signup() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // console.log(signupState);
     createAccount(e);
   };
 
@@ -32,6 +32,7 @@ export default function Signup() {
       let data = await handleSignUpApi(
         e.target.email.value,
         e.target.password.value,
+        e.target.fullName.value,
         roleID
       );
       if (e.target.password.value !== e.target.confirm_password.value) {
@@ -40,7 +41,8 @@ export default function Signup() {
         if (data && data.errCode !== 0) {
           setErrMessage(data.message);
         } else {
-          navigate("/");
+          toast.success('Đăng kí thành công')
+          navigate("/login");
         }
       }
     } catch (error) {

@@ -5,6 +5,7 @@ import FormExtra from './FormExtra';
 import Input from './InputAuth';
 import { handleLoginApi } from '../services/userService';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 // import { UserContext } from '../context/UserContext';
 
 const fields = loginFields;
@@ -49,9 +50,10 @@ export default function Login() {
 					account: {email,roleID,fullName}
 				}
 				localStorage.setItem('jwt',response.access_token)
-				// sessionStorage.setItem('userData', JSON.stringify(data));
+				sessionStorage.setItem('userData', JSON.stringify(data));
 				// loginContext(data)
 				// Chuyển hướng dựa trên phản hồi từ backend
+				toast.success('Đăng nhập thành công')
 				navigate(response.redirectURL); 
 			}
 		} catch (error) {

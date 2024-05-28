@@ -103,7 +103,9 @@ const Header = () => {
 									'&:hover': {
 										backgroundColor: alpha('#ff0000', 0.8),
 									},
-								}}>
+								}}
+								onClick={()=> navigate('/login')}
+							>
 								Đăng nhập
 							</Button>
 						}
