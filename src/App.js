@@ -4,6 +4,7 @@ import MainLayout from './layout/MainLayout';
 import NotFound from '../src/pages/NotFound';
 import LoginPage from '../src/pages/LoginPage';
 import SignupPage from '../src/pages/SignupPage';
+import ListMovie from './pages/ListMovie';
 import ForgotPwPage from '../src/pages/ForgotPwPage';
 import HomePage from './pages/HomePage';
 import SearchPage from './pages/SearchPage';
@@ -23,6 +24,7 @@ function App() {
 					<Route path="/movie" element={<MovieDetail />} />
 					<Route path="/actor" element={<ActorDetail />} />
 					<Route path="/search" element={<SearchPage />} />
+					<Route path="/tv" element={<ListMovie />} />
 
 				</Route>
 				<Route path="*" element={<NotFound />} />
