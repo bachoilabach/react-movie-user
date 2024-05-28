@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { loginFields } from '../constants/FormFieldsAuth';
 import FormAction from './FormAction';
 import FormExtra from './FormExtra';
@@ -6,7 +6,7 @@ import Input from './InputAuth';
 import { handleLoginApi } from '../services/userService';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-// import { UserContext } from '../context/UserContext';
+import { UserContext } from '../context/UserContext';
 
 const fields = loginFields;
 let fieldsState = {};
@@ -15,7 +15,7 @@ fields.forEach((field) => (fieldsState[field.id] = ''));
 export default function Login() {
 	const navigate = useNavigate();
 
-	// const {loginContext} = useContext(UserContext)
+	const {loginContext} = useContext(UserContext)
 
 	const [loginState, setLoginState] = useState(fieldsState);
 	const [errMessage, setErrMessage] = useState('');
@@ -51,7 +51,7 @@ export default function Login() {
 				}
 				localStorage.setItem('jwt',response.access_token)
 				sessionStorage.setItem('userData', JSON.stringify(data));
-				// loginContext(data)
+				loginContext(data)
 				// Chuyển hướng dựa trên phản hồi từ backend
 				toast.success('Đăng nhập thành công')
 				navigate(response.redirectURL); 
