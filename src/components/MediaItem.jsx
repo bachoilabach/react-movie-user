@@ -1,52 +1,52 @@
-import { Button } from '@mui/material';
-import React from 'react';
-import PlayArrowIcon from '@mui/icons-material/PlayArrow';
-import CircularRate from './CircularRate';
-import { useNavigate } from 'react-router-dom';
+import { Button } from "@mui/material";
+import React from "react";
+import PlayArrowIcon from "@mui/icons-material/PlayArrow";
+import CircularRate from "./CircularRate";
+import { useNavigate } from "react-router-dom";
 
 function MediaItem({ imgUrl, score, releaseDate, title, movieID }) {
-	const navigate = useNavigate()
-	const releaseYear = (releaseDate) => {
-		if (releaseDate) {
-			const year = releaseDate.split('-')[0];
-			return year;
-		}
-		return '';
-	};
+  const navigate = useNavigate();
+  const releaseYear = (releaseDate) => {
+    if (releaseDate) {
+      const year = releaseDate.split("-")[0];
+      return year;
+    }
+    return "";
+  };
 
-	return (
-		<div
-			className="bg-contain bg-no-repeat  w-[200px] h-[300px] mt-6 rounded-lg hover cursor-pointer text-white p-3
-            overflow-hidden group flex flex-col justify-between items-center hover:brightness-[0.8] mb-16
-            "
-			style={{
-				backgroundImage: `url(${imgUrl})`,
-			}}
-			onClick={()=>navigate(`/movie/${movieID}`)}
-			>
-			<div></div>
-			<div className="opacity-0 group-hover:opacity-100">
-				<Button
-					variant="contained"
-					color="primary"
-					startIcon={<PlayArrowIcon />}
-					sx={{
-						backgroundColor: '#ff0000',
-						'&:hover': {
-							backgroundColor: 'rgba(255, 0, 0, 0.8)',
-						},
-						paddingLeft: '40%',
-						marginBottom: '-100px',
-						width: '10px',
-					}}></Button>
-			</div>
-			<div className="inset-0 opacity-0 group-hover:opacity-100 transition-opacity items-start w-[175px]">
-				<CircularRate value={score} />
-				<p className="text-[14px] w-full">{releaseYear(releaseDate)}</p>
-				<p className="font-semibold text-[13px] w-full">{title}</p>
-			</div>
-		</div>
-	);
+  return (
+    <div
+      className="bg-contain bg-no-repeat w-[270px] h-[405px] mt-6 cursor-pointer text-white p-3
+		overflow-hidden group flex flex-col justify-center items-center mb-16 relative"
+      style={{
+        backgroundImage: `url(${imgUrl})`,
+      }}
+      onClick={() => navigate(`/movie/${movieID}`)}
+    >
+      <div className="absolute inset-0  bg-black opacity-0 group-hover:opacity-50 transition-opacity"></div>
+      <div className="absolute inset-0 flex justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity">
+        <Button
+          variant="contained"
+          color="primary"
+          startIcon={<PlayArrowIcon />}
+          sx={{
+            backgroundColor: "#ff0000",
+            "&:hover": {
+              backgroundColor: "rgba(255, 0, 0, 0.8)",
+            },
+            paddingLeft: "40%",
+            marginBottom: "-100px",
+            width: "10px",
+          }}
+        ></Button>
+      </div>
+      <div className="absolute bottom-0 p-4 w-full opacity-0 group-hover:opacity-100 transition-opacity flex flex-col gap-2">
+        <CircularRate value={score} />
+        <p className="text-[14px] w-full">{releaseYear(releaseDate)}</p>
+        <p className="font-semibold text-[13px] w-full">{title}</p>
+      </div>
+    </div>
+  );
 }
 
 export default MediaItem;
