@@ -4,6 +4,7 @@ import MainLayout from './layout/MainLayout';
 import NotFound from '../src/pages/NotFound';
 import LoginPage from '../src/pages/LoginPage';
 import SignupPage from '../src/pages/SignupPage';
+import ListMovie from './pages/ListMovie';
 import ForgotPwPage from '../src/pages/ForgotPwPage';
 import HomePage from './pages/HomePage';
 import SearchPage from './pages/SearchPage';
