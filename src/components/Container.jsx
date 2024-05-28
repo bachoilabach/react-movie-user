@@ -10,7 +10,7 @@ const HeaderTypography = styled(Typography)(({ theme }) => ({
     position: "absolute",
     bottom: "-4px",
     left: 0,
-    width: "20%",
+    width: "15%",
     height: "4px",
     backgroundColor: "#ff0000",
     borderRadius: "2px",
