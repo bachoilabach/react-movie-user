@@ -16,8 +16,8 @@ function MediaItem({ imgUrl, score, releaseDate, title, movieID }) {
 
   return (
     <div
-      className="bg-contain bg-no-repeat w-[270px] h-[405px] mt-6 cursor-pointer text-white p-3
-		overflow-hidden group flex flex-col justify-center items-center mb-16 relative"
+      className="bg-contain bg-no-repeat w-[230px] h-[355px] mt-6 cursor-pointer text-white p-3
+		overflow-hidden group flex flex-col justify-center items-center mb-16 relative rounded-lg"
       style={{
         backgroundImage: `url(${imgUrl})`,
       }}
