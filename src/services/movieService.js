@@ -38,6 +38,12 @@ const getMoviesByActorID = (id)=>{
 	})
 }
 
+const getCommentByMoviID = (id)=>{
+	return axios.get(`/api/comment/get-comment-by-movieID?id=${id}`,{
+		movieID: id
+	})
+}
+
 export {
 	handleGetMovieByImdb,
 	getAllMovies,
@@ -46,4 +52,5 @@ export {
 	getAllCountries,
 	getAllActorsMovie,
 	getMoviesByActorID,
+	getCommentByMoviID
 };

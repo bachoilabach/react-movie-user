@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Container from '../components/Container';
 
 import SendOutlinedIcon from '@mui/icons-material/SendOutlined';
@@ -14,70 +14,36 @@ import {
 	ListItemAvatar,
 	ListItemText,
 } from '@mui/material';
+import { getCommentByMoviID } from '../services/movieService';
 
-const staticComments = [
-	{
-		userName: 'Truong',
-		Avatar: 'none',
-		Content: 'Phim hay qua',
-		CreateAt: '2024-12-07',
-	},
-	{
-		userName: 'Dat',
-		Avatar: 'none',
-		Content: 'Phim hay qua hay qua',
-		CreateAt: '2024-12-07',
-	},
-	{
-		userName: 'Truong',
-		Avatar: 'none',
-		Content: 'Phim hay qua du vay chen',
-		CreateAt: '2024-12-07',
-	},
-	{
-		userName: 'Nam',
-		Avatar: 'none',
-		Content: 'Phim hay qua',
-		CreateAt: '2024-12-07',
-	},
-	{
-		userName: 'Son',
-		Avatar: 'none',
-		Content: 'Phim hay qua hay qua',
-		CreateAt: '2024-12-07',
-	},
-	{
-		userName: 'Truong',
-		Avatar: 'none',
-		Content: 'Phim hay qua du vay chen',
-		CreateAt: '2024-12-07',
-	},
-	{
-		userName: 'Son',
-		Avatar: 'none',
-		Content: 'Phim hay qua hay qua',
-		CreateAt: '2024-12-07',
-	},
-	{
-		userName: 'Truong',
-		Avatar: 'none',
-		Content: 'Phim hay qua du vay chen',
-		CreateAt: '2024-12-07',
-	},
-];
-
-function MovieComment() {
+function MovieComment({ movieID }) {
+	const [comments, setComments] = useState([]);
 	const [visibleComments, setVisibleComments] = useState(3);
+	const commentLength = comments.length;
 
 	const loadMoreComments = () => {
 		setVisibleComments(visibleComments + 3);
 	};
+
+	const commentTime = (commentDate)=>{
+		const commentDateFromApi = commentDate.split('T')[0]
+		return commentDateFromApi
+	}
 
 	const renderAvatar = (text) => (
 		<ListItemAvatar>
 			<TextAvatar text={text} />
 		</ListItemAvatar>
 	);
+
+	const fetchComment = async () => {
+		try {
+			const response = await getCommentByMoviID(movieID);
+			setComments(response.comments);
+		} catch (error) {
+			console.log(error);
+		}
+	};
 
 	const renderComment = (comment) => {
 		return (
@@ -90,23 +56,27 @@ function MovieComment() {
 					<Typography variant="h6" fontWeight="700">
 						{comment.userName}
 					</Typography>
-					<Typography fontSize={12}>{comment.CreateAt}</Typography>
-					<Typography variant="h6">{comment.Content}</Typography>
+					<Typography fontSize={12}>{commentTime(comment.commentDate)}</Typography>
+					<Typography variant="h6">{comment.content}</Typography>
 				</ListItemText>
 			</ListItem>
 		);
 	};
 
+	useEffect(() => {
+		fetchComment();
+	}, [movieID]);
+
 	return (
 		<>
-			<Container header={`Bình luận phim (${staticComments.length})`}>
+			<Container header={`Bình luận phim (${commentLength})`}>
 				<List sx={{ width: '100%', bgcolor: 'black' }}>
-					{staticComments
+					{comments
 						.slice(0, visibleComments)
 						.map((comment) => renderComment(comment))}
 				</List>
 				<div className="flex justify-center font-semibold">
-					{visibleComments < staticComments.length && (
+					{visibleComments < comments.length && (
 						<Button
 							sx={{
 								fontSize: '18px',
@@ -140,11 +110,15 @@ function MovieComment() {
 						<Button
 							variant="contained"
 							size="large"
-							sx={{ width: 'max-content' }}
-							startIcon={<SendOutlinedIcon />}
-							// loading={onRequest}
-							// onClick={onAddReview}
-						>
+							sx={{
+								width: 'max-content',
+								backgroundColor: '#ff0000',
+								'&:hover': {
+									opacity: 0.8,
+									backgroundColor: '#ff0000',
+								},
+							}}
+							startIcon={<SendOutlinedIcon />}>
 							Đăng
 						</Button>
 					</Stack>

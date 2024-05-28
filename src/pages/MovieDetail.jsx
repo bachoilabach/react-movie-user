@@ -1,9 +1,7 @@
 import FavoriteIcon from '@mui/icons-material/Favorite';
-// import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
-import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import { useEffect, useState } from 'react';
 
-import { Box, Button, Divider, Stack, Typography, alpha } from '@mui/material';
+import { Box, Button, Stack, Typography, alpha } from '@mui/material';
 
 import CircularRate from '../components/CircularRate';
 import Container from '../components/Container';
@@ -21,10 +19,11 @@ import {
 } from '../services/movieService';
 import { getAllDirectors } from '../services/directorService';
 import { getAllActors } from '../services/actorService';
+import MediaSlider from '../components/MediaSlider';
 
 const MediaDetail = () => {
 	const { id } = useParams();
-	const [movie1, setMovie1] = useState({});
+	const [movie, setMovie] = useState({});
 	const [director, setDirector] = useState();
 	const [country, setCountry] = useState();
 	const [actors, setActors] = useState([]);
@@ -32,7 +31,7 @@ const MediaDetail = () => {
 	const fetchMovieById = async () => {
 		try {
 			const response = await getAllMovies(id);
-			setMovie1(response.movies);
+			setMovie(response.movies);
 
 			// * Director
 			const responseDirector = await getAllDirectorsMovie(id);
@@ -80,7 +79,7 @@ const MediaDetail = () => {
 					paddingTop: { xs: '60%', sm: '40%', md: '35%' },
 					backgroundPosition: 'top',
 					backgroundSize: 'cover',
-					backgroundImage: `url(${movie1.thumbnail})`,
+					backgroundImage: `url(${movie.thumbnail})`,
 					backgroundAttachment: 'fixed',
 					'&::before': {
 						content: '""',
@@ -126,7 +125,7 @@ const MediaDetail = () => {
 									backgroundSize: 'cover',
 									backgroundPosition: 'center',
 									backgroundColor: 'darkgrey',
-									backgroundImage: `url(${movie1.background})`,
+									backgroundImage: `url(${movie.background})`,
 									borderRadius: '8px',
 								}}
 							/>
@@ -146,32 +145,37 @@ const MediaDetail = () => {
 									fontSize={{ xs: '2rem', md: '2rem', lg: '4rem' }}
 									fontWeight="700"
 									sx={{ ...uiConfigs.style.typoLines(2, 'left') }}>
-									{movie1.title}
+									{movie.title}
 								</Typography>
 								{/* title */}
 
 								{/* rate and genres */}
 								<Stack direction="row" spacing={1} alignItems="center">
 									{/* rate */}
-									<CircularRate value={movie1.imdb} />
+									<CircularRate value={movie.imdb} />
 									{/* rate */}
-									<Divider orientation="vertical" />
 									{/* genres */}
-									Viễn Tưởng
+
 									{/* genres */}
 								</Stack>
 								{/* rate and genres */}
 								<Stack spacing={1} direction="column">
-									<Typography variant="body1">Đạo diễn: {director}</Typography>
-									<Typography variant="body1">Quốc gia: {country}</Typography>
-									<Typography variant="body1">{movie1.release}</Typography>
+									<Typography variant="body1" sx={{ fontSize: '14px' }}>
+										Đạo diễn: {director}
+									</Typography>
+									<Typography variant="body1" sx={{ fontSize: '14px' }}>
+										Quốc gia: {country}
+									</Typography>
+									<Typography variant="body1" sx={{ fontSize: '14px' }}>
+										{movie.release}
+									</Typography>
 								</Stack>
 
 								{/* overview */}
 								<Typography
 									variant="body1"
-									sx={{ ...uiConfigs.style.typoLines(5) }}>
-									{movie1.description}
+									sx={{ ...uiConfigs.style.typoLines(5), fontSize: '14px' }}>
+									{movie.description}
 								</Typography>
 								{/* overview */}
 
@@ -182,7 +186,7 @@ const MediaDetail = () => {
 										sx={{
 											width: 'max-content',
 											'& .MuiButon-starIcon': { marginRight: '0' },
-											color: '#ff0000'
+											color: '#ff0000',
 										}}
 										size="large"
 										startIcon={
@@ -275,10 +279,10 @@ const MediaDetail = () => {
 				{/* media content */}
 
 				{/* media videos */}
-				<div className="pt-[2rem]">
+				<div className="pt-[2rem] mb-5">
 					<Container header="Trailer giới thiệu">
 						<div
-							dangerouslySetInnerHTML={{ __html: movie1.html }}
+							dangerouslySetInnerHTML={{ __html: movie.html }}
 							className="items-center"
 						/>
 					</Container>
@@ -286,21 +290,15 @@ const MediaDetail = () => {
 				{/* media videos */}
 
 				{/* media reviews */}
-				<MovieComment />
+				<MovieComment movieID={movie.movieID}/>
 				{/* media reviews */}
 
 				{/* media recommendation */}
-				{/* <Container header="Có thể bạn sẽ thích">
-          {media.recommend.length > 0 && (
-            <RecommendSlide medias={media.recommend} mediaType={mediaType} />
-          )}
-          {media.recommend.length === 0 && (
-            <MediaSlide
-              mediaType={mediaType}
-              mediaCategory={tmdbConfigs.mediaCategory.top_rated}
-            />
-          )}
-        </Container> */}
+				<div className="mt-5">
+					<Container header={'Có thể bạn cũng thích'}>
+						<MediaSlider title={'Phim mới ra mắt'}/>
+					</Container>
+				</div>
 				{/* media recommendation */}
 			</Box>
 		</>

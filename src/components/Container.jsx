@@ -7,12 +7,12 @@ const HeaderTypography = styled(Typography)(({ theme }) => ({
 	'&::before': {
 		content: '""',
 		position: 'absolute',
-		bottom: '-4px', // Adjust the position as needed
+		bottom: '-4px', 
 		left: 0,
-		width: '20%', // Adjust the width as needed
-		height: '4px', // Adjust the height as needed
-		backgroundColor: '#ff0000', // Red color
-		borderRadius: '2px', // Optional: add rounded corners
+		width: '20%', 
+		height: '4px', 
+		backgroundColor: '#ff0000', 
+		borderRadius: '2px', 
 	},
 }));
 
