@@ -7,7 +7,7 @@ function HomePage() {
 	return (
 		<>
 			<HeroSlide />
-      <div className='bg-black px-52'>
+      <div className='bg-black flex flex-col justify-center items-center'>
         <Container header={'Phim phổ biến'}>
           <MediaSlider title = {'Phim mới ra mắt'}/>
         </Container>

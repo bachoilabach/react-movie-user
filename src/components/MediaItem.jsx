@@ -28,17 +28,13 @@ function MediaItem({ imgUrl, score, releaseDate, title, movieID }) {
         <Button
           variant="contained"
           color="primary"
-          startIcon={<PlayArrowIcon />}
           sx={{
             backgroundColor: "#ff0000",
             "&:hover": {
               backgroundColor: "rgba(255, 0, 0, 0.8)",
             },
-            paddingLeft: "40%",
-            marginBottom: "-100px",
-            width: "10px",
           }}
-        ></Button>
+        ><PlayArrowIcon /></Button>
       </div>
       <div className="absolute bottom-0 p-4 w-full opacity-0 group-hover:opacity-100 transition-opacity flex flex-col gap-2">
         <CircularRate value={score} />
