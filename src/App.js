@@ -27,6 +27,7 @@ function App() {
 						<Route path="/movie/:id" element={<MovieDetail />} />
 						<Route path="/actor/:id" element={<ActorDetail />} />
 						<Route path="/search" element={<SearchPage />} />
+						<Route path="/tv" element={<ListMovie />} />
 					</Route>
 					<Route path="*" element={<NotFound />} />
 				</Routes>
