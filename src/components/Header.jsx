@@ -36,7 +36,12 @@ const Header = () => {
 		return () => {
 			window.removeEventListener('scroll', handleScroll);
 		};
+
 	}, []);
+
+	const userDataFromStorage = ()=>{
+		
+	}
 
 	return (
 		<>
