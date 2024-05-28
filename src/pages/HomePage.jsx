@@ -4,20 +4,20 @@ import Container from "../components/Container";
 import MediaSlider from "../components/MediaSlider";
 
 function HomePage() {
-	return (
-		<>
-			<HeroSlide />
-      <div className='bg-black flex flex-col justify-center items-center'>
-        <Container header={'Phim phổ biến'}>
-          <MediaSlider title = {'Phim mới ra mắt'}/>
+  return (
+    <>
+      <HeroSlide />
+      <div className="bg-black flex flex-col justify-center items-center">
+        <Container header={"Phim phổ biến"}>
+          <MediaSlider title={"Phim mới ra mắt"} />
         </Container>
 
-        <Container header={'Phim mới ra mắt'}>
-          <MediaSlider title = {'Phim mới ra mắt'}/>
+        <Container header={"Phim mới ra mắt"}>
+          <MediaSlider title={"Phim mới ra mắt"} />
         </Container>
 
-        <Container header={'Phim được đánh giá cao'}>
-          <MediaSlider title={'Phim được đánh giá cao'}/>
+        <Container header={"Phim được đánh giá cao"}>
+          <MediaSlider title={"Phim được đánh giá cao"} />
         </Container>
       </div>
     </>

@@ -17,25 +17,32 @@ function ListMovie() {
       <Toolbar className="bg-[#091C2D]">
         <Box sx={{ flexGrow: 1, display: "flex", gap: 2 }}>
           {/* genremovie */}
-          <FormControl variant="filled" sx={{ minWidth: 120, backgroundColor: "white", borderRadius: "5px" }} >
-            <InputLabel id="movie-type-label" >
-              Loại phim
-            </InputLabel>
+          <FormControl
+            variant="filled"
+            sx={{
+              minWidth: 120,
+              backgroundColor: "white",
+              borderRadius: "5px",
+            }}
+          >
+            <InputLabel id="movie-type-label">Loại phim</InputLabel>
             <Select
               labelId="movie-type-label"
               id="movie-type"
               value=""
               label="Loại phim"
               defaultValue="Phim Lẻ"
-              
             >
               <MenuItem value="Phim Lẻ">Phim Lẻ</MenuItem>
               <MenuItem value="Phim Bộ">Phim Bộ</MenuItem>
             </Select>
           </FormControl>
           {/* genre */}
-          <FormControl variant="filled" sx={{ minWidth: 120, backgroundColor: "white" }}>
-            <InputLabel id="genre-label" >Thể loại</InputLabel>
+          <FormControl
+            variant="filled"
+            sx={{ minWidth: 120, backgroundColor: "white" }}
+          >
+            <InputLabel id="genre-label">Thể loại</InputLabel>
             <Select
               labelId="genre-label"
               id="genre"
@@ -49,8 +56,11 @@ function ListMovie() {
             </Select>
           </FormControl>
           {/* national */}
-          <FormControl variant="filled" sx={{ minWidth: 120, backgroundColor: "white" }}>
-            <InputLabel id="national-label" >Quốc gia</InputLabel>
+          <FormControl
+            variant="filled"
+            sx={{ minWidth: 120, backgroundColor: "white" }}
+          >
+            <InputLabel id="national-label">Quốc gia</InputLabel>
             <Select
               labelId="national-label"
               id="national"
@@ -66,8 +76,11 @@ function ListMovie() {
             </Select>
           </FormControl>
           {/* release Date */}
-          <FormControl variant="filled" sx={{ minWidth: 120, backgroundColor: "white" }}>
-            <InputLabel id="releaseDate-label" >Năm phát hành</InputLabel>
+          <FormControl
+            variant="filled"
+            sx={{ minWidth: 120, backgroundColor: "white" }}
+          >
+            <InputLabel id="releaseDate-label">Năm phát hành</InputLabel>
             <Select
               labelId="releaseDate-label"
               id="releaseDate"

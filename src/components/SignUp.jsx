@@ -41,7 +41,7 @@ export default function Signup() {
         if (data && data.errCode !== 0) {
           setErrMessage(data.message);
         } else {
-          toast.success('Đăng kí thành công')
+          toast.success("Đăng kí thành công");
           navigate("/login");
         }
       }

@@ -98,8 +98,6 @@ const movies = [
 
 const mediaTypes = ["Tìm kiếm phim", "Tìm kiếm diễn viên"];
 
-
-
 const SearchPage = () => {
   const [mediaType, setMediaType] = useState(mediaTypes[0]);
   const [medias, setMedias] = useState([]);
@@ -137,7 +135,7 @@ const SearchPage = () => {
           <TextField
             color="success"
             placeholder="Nhập tên phim..."
-            sx={{ width: "100%", border: "0.5px solid red" , color: "white" }}
+            sx={{ width: "100%", border: "0.5px solid red", color: "white" }}
             autoFocus
             // onChange={onQueryChange}
           />

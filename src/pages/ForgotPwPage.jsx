@@ -1,5 +1,3 @@
-
-
 import ForgotPw from "../components/ForgotPw";
 import HeaderForm from "../components/HeaderForm";
 import background from "../img/background.jpg";
