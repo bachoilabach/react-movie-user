@@ -1,5 +1,5 @@
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import { Box, Button, Stack, Typography, alpha } from "@mui/material";
 
@@ -20,9 +20,11 @@ import {
 import { getAllDirectors } from "../services/directorService";
 import { getAllActors } from "../services/actorService";
 import MediaSlider from "../components/MediaSlider";
+import { UserContext } from "../context/UserContext";
 
 const MediaDetail = () => {
   const { id } = useParams();
+  const {user} = useContext(UserContext)
   const [movie, setMovie] = useState({});
   const [director, setDirector] = useState();
   const [country, setCountry] = useState();
@@ -147,7 +149,7 @@ const MediaDetail = () => {
                 {/* title */}
                 <Typography
                   variant="h4"
-                  fontSize={{ xs: "2rem", md: "2rem", lg: "4rem" }}
+                  fontSize={{ xs: "2rem", md: "1rem", lg: "3rem" }}
                   fontWeight="700"
                   sx={{ ...uiConfigs.style.typoLines(2, "left") }}
                 >

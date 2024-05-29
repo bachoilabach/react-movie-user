@@ -16,7 +16,7 @@ function MediaItem({ imgUrl, score, releaseDate, title, movieID }) {
 
   return (
     <div
-      className="bg-contain bg-no-repeat w-[230px] h-[355px] mt-6 cursor-pointer text-white p-3
+      className="bg-contain bg-no-repeat w-[230px] h-[340px] mt-6 cursor-pointer text-white p-3
 		overflow-hidden group flex flex-col justify-center items-center mb-16 relative rounded-lg"
       style={{
         backgroundImage: `url(${imgUrl})`,
@@ -41,7 +41,7 @@ function MediaItem({ imgUrl, score, releaseDate, title, movieID }) {
       <div className="absolute bottom-0 p-4 w-full opacity-0 group-hover:opacity-100 transition-opacity flex flex-col gap-2">
         <CircularRate value={score} />
         <p className="text-[14px] w-full">{releaseYear(releaseDate)}</p>
-        <p className="font-semibold text-[13px] w-full">{title}</p>
+        <p className="font-semibold text-[16px] w-full">{title}</p>
       </div>
     </div>
   );

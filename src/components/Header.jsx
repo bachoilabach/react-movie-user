@@ -5,6 +5,8 @@ import {
   Box,
   Button,
   IconButton,
+  Menu,
+  MenuItem,
   Stack,
   Toolbar,
   Typography,
@@ -13,11 +15,16 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import menuConfigs from "../config/menu.configs";
 import Logo from "./Logo";
+// import { UserContext } from "../context/UserContext";
 
 const Header = () => {
   const navigate = useNavigate();
+  // const {user} = useContext(UserContext)
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [scrolled, setScrolled] = useState(false);
+  const [userName, setUserName] = useState()
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
 
   const handleButtonClick = (index) => {
     setSelectedIndex(index);
@@ -38,7 +45,32 @@ const Header = () => {
     };
   }, []);
 
-  const userDataFromStorage = () => {};
+  useEffect(() => {
+    const userData = sessionStorage.getItem('userData')
+    if(userData){
+      const parsedUserData = JSON.parse(userData)
+      setUserName(parsedUserData.account.fullName)
+    }
+  }, []);
+
+  const handleMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    sessionStorage.removeItem('userData');
+    setUserName(null);
+    // navigate('/login');
+  };
+
+  const handleFavorite = () => {
+    navigate('/favorite');
+    handleMenuClose();
+  };
 
   return (
     <>
@@ -75,7 +107,7 @@ const Header = () => {
                 key={index}
                 component={Link}
                 to={item.path}
-                variant="contained"
+                // variant="contained"
                 onClick={() => {
                   handleButtonClick(index);
                   navigate(item.path);
@@ -83,6 +115,7 @@ const Header = () => {
                 style={{
                   backgroundColor:
                     selectedIndex === index ? "red" : "transparent",
+                  margin: '0px 5px'
                 }}
               >
                 <Typography
@@ -99,7 +132,28 @@ const Header = () => {
 
           {/* user menu */}
           <Stack spacing={3} direction="row" alignItems="center">
-            {
+            {userName ? (
+              <>
+                <Typography
+                  className="text-white"
+                  fontWeight={600}
+                  sx={{ fontSize: "14px", cursor: "pointer" }}
+                  onMouseEnter={handleMenuOpen}
+                >
+                  {userName}
+                </Typography>
+                <Menu
+                  anchorEl={anchorEl}
+                  open={open}
+                  onClose={handleMenuClose}
+                  MenuListProps={{ onMouseLeave: handleMenuClose }}
+                  sx={{zIndex: '9999'}}
+                >
+                  <MenuItem onClick={handleFavorite}>Favorite</MenuItem>
+                  <MenuItem onClick={handleLogout}>Log out</MenuItem>
+                </Menu>
+              </>
+            ) : (
               <Button
                 className=""
                 variant="contained"
@@ -114,7 +168,7 @@ const Header = () => {
               >
                 Đăng nhập
               </Button>
-            }
+            )}
           </Stack>
           {/* user menu */}
         </Toolbar>
