@@ -1,154 +1,198 @@
-import { Box, Button, Stack, TextField, Grid } from "@mui/material";
-import { useState } from "react";
+import { Box, Button, Stack, TextField, Grid, debounce } from '@mui/material';
+import { useState } from 'react';
 
-import MediaItem from "../components/MediaItem";
+import MediaItem from '../components/MediaItem';
+import { searchMovieApi } from '../services/movieService';
 
 const movies = [
-  {
-    title: "Godzilla x Kong: The New Empire",
-    releaseDate: "2024",
-    score: "8",
-    imgUrl: "https://image.tmdb.org/t/p/w500/tMefBSflR6PGQLv7WvFPpKLZkyk.jpg",
-  },
-  {
-    title: "Godzilla x Kong: The New Empire",
-    releaseDate: "2024",
-    score: "8",
-    imgUrl: "https://image.tmdb.org/t/p/w500/tMefBSflR6PGQLv7WvFPpKLZkyk.jpg",
-  },
-  {
-    title: "Godzilla x Kong: The New Empire",
-    releaseDate: "2024",
-    score: "8",
-    imgUrl: "https://image.tmdb.org/t/p/w500/tMefBSflR6PGQLv7WvFPpKLZkyk.jpg",
-  },
-  {
-    title: "Godzilla x Kong: The New Empire",
-    releaseDate: "2024",
-    score: "8",
-    imgUrl: "https://image.tmdb.org/t/p/w500/tMefBSflR6PGQLv7WvFPpKLZkyk.jpg",
-  },
-  {
-    title: "Godzilla x Kong: The New Empire",
-    releaseDate: "2024",
-    score: "8",
-    imgUrl: "https://image.tmdb.org/t/p/w500/tMefBSflR6PGQLv7WvFPpKLZkyk.jpg",
-  },
-  {
-    title: "Godzilla x Kong: The New Empire",
-    releaseDate: "2024",
-    score: "8",
-    imgUrl: "https://image.tmdb.org/t/p/w500/tMefBSflR6PGQLv7WvFPpKLZkyk.jpg",
-  },
-  {
-    title: "Godzilla x Kong: The New Empire",
-    releaseDate: "2024",
-    score: "8",
-    imgUrl: "https://image.tmdb.org/t/p/w500/tMefBSflR6PGQLv7WvFPpKLZkyk.jpg",
-  },
-  {
-    title: "Godzilla x Kong: The New Empire",
-    releaseDate: "2024",
-    score: "8",
-    imgUrl: "https://image.tmdb.org/t/p/w500/tMefBSflR6PGQLv7WvFPpKLZkyk.jpg",
-  },
-  {
-    title: "Godzilla x Kong: The New Empire",
-    releaseDate: "2024",
-    score: "8",
-    imgUrl: "https://image.tmdb.org/t/p/w500/tMefBSflR6PGQLv7WvFPpKLZkyk.jpg",
-  },
-  {
-    title: "Godzilla x Kong: The New Empire",
-    releaseDate: "2024",
-    score: "8",
-    imgUrl: "https://image.tmdb.org/t/p/w500/tMefBSflR6PGQLv7WvFPpKLZkyk.jpg",
-  },
-  {
-    title: "Godzilla x Kong: The New Empire",
-    releaseDate: "2024",
-    score: "8",
-    imgUrl: "https://image.tmdb.org/t/p/w500/tMefBSflR6PGQLv7WvFPpKLZkyk.jpg",
-  },
-  {
-    title: "Godzilla x Kong: The New Empire",
-    releaseDate: "2024",
-    score: "8",
-    imgUrl: "https://image.tmdb.org/t/p/w500/tMefBSflR6PGQLv7WvFPpKLZkyk.jpg",
-  },
-  {
-    title: "Godzilla x Kong: The New Empire",
-    releaseDate: "2024",
-    score: "8",
-    imgUrl: "https://image.tmdb.org/t/p/w500/tMefBSflR6PGQLv7WvFPpKLZkyk.jpg",
-  },
-  {
-    title: "Godzilla x Kong: The New Empire",
-    releaseDate: "2024",
-    score: "8",
-    imgUrl: "https://image.tmdb.org/t/p/w500/tMefBSflR6PGQLv7WvFPpKLZkyk.jpg",
-  },
-  {
-    title: "Godzilla x Kong: The New Empire",
-    releaseDate: "2024",
-    score: "8",
-    imgUrl: "https://image.tmdb.org/t/p/w500/tMefBSflR6PGQLv7WvFPpKLZkyk.jpg",
-  },
+	{
+		title: 'Godzilla x Kong: The New Empire',
+		releaseDate: '2024',
+		score: '8',
+		imgUrl: 'https://image.tmdb.org/t/p/w500/tMefBSflR6PGQLv7WvFPpKLZkyk.jpg',
+	},
+	{
+		title: 'Godzilla x Kong: The New Empire',
+		releaseDate: '2024',
+		score: '8',
+		imgUrl: 'https://image.tmdb.org/t/p/w500/tMefBSflR6PGQLv7WvFPpKLZkyk.jpg',
+	},
+	{
+		title: 'Godzilla x Kong: The New Empire',
+		releaseDate: '2024',
+		score: '8',
+		imgUrl: 'https://image.tmdb.org/t/p/w500/tMefBSflR6PGQLv7WvFPpKLZkyk.jpg',
+	},
+	{
+		title: 'Godzilla x Kong: The New Empire',
+		releaseDate: '2024',
+		score: '8',
+		imgUrl: 'https://image.tmdb.org/t/p/w500/tMefBSflR6PGQLv7WvFPpKLZkyk.jpg',
+	},
+	{
+		title: 'Godzilla x Kong: The New Empire',
+		releaseDate: '2024',
+		score: '8',
+		imgUrl: 'https://image.tmdb.org/t/p/w500/tMefBSflR6PGQLv7WvFPpKLZkyk.jpg',
+	},
+	{
+		title: 'Godzilla x Kong: The New Empire',
+		releaseDate: '2024',
+		score: '8',
+		imgUrl: 'https://image.tmdb.org/t/p/w500/tMefBSflR6PGQLv7WvFPpKLZkyk.jpg',
+	},
+	{
+		title: 'Godzilla x Kong: The New Empire',
+		releaseDate: '2024',
+		score: '8',
+		imgUrl: 'https://image.tmdb.org/t/p/w500/tMefBSflR6PGQLv7WvFPpKLZkyk.jpg',
+	},
+	{
+		title: 'Godzilla x Kong: The New Empire',
+		releaseDate: '2024',
+		score: '8',
+		imgUrl: 'https://image.tmdb.org/t/p/w500/tMefBSflR6PGQLv7WvFPpKLZkyk.jpg',
+	},
+	{
+		title: 'Godzilla x Kong: The New Empire',
+		releaseDate: '2024',
+		score: '8',
+		imgUrl: 'https://image.tmdb.org/t/p/w500/tMefBSflR6PGQLv7WvFPpKLZkyk.jpg',
+	},
+	{
+		title: 'Godzilla x Kong: The New Empire',
+		releaseDate: '2024',
+		score: '8',
+		imgUrl: 'https://image.tmdb.org/t/p/w500/tMefBSflR6PGQLv7WvFPpKLZkyk.jpg',
+	},
+	{
+		title: 'Godzilla x Kong: The New Empire',
+		releaseDate: '2024',
+		score: '8',
+		imgUrl: 'https://image.tmdb.org/t/p/w500/tMefBSflR6PGQLv7WvFPpKLZkyk.jpg',
+	},
+	{
+		title: 'Godzilla x Kong: The New Empire',
+		releaseDate: '2024',
+		score: '8',
+		imgUrl: 'https://image.tmdb.org/t/p/w500/tMefBSflR6PGQLv7WvFPpKLZkyk.jpg',
+	},
+	{
+		title: 'Godzilla x Kong: The New Empire',
+		releaseDate: '2024',
+		score: '8',
+		imgUrl: 'https://image.tmdb.org/t/p/w500/tMefBSflR6PGQLv7WvFPpKLZkyk.jpg',
+	},
+	{
+		title: 'Godzilla x Kong: The New Empire',
+		releaseDate: '2024',
+		score: '8',
+		imgUrl: 'https://image.tmdb.org/t/p/w500/tMefBSflR6PGQLv7WvFPpKLZkyk.jpg',
+	},
+	{
+		title: 'Godzilla x Kong: The New Empire',
+		releaseDate: '2024',
+		score: '8',
+		imgUrl: 'https://image.tmdb.org/t/p/w500/tMefBSflR6PGQLv7WvFPpKLZkyk.jpg',
+	},
 ];
 
-const mediaTypes = ["Tìm kiếm phim", "Tìm kiếm diễn viên", "Tìm kiếm đạo diễn"];
+const mediaTypes = ['Tìm kiếm phim', 'Tìm kiếm diễn viên', 'Tìm kiếm đạo diễn'];
 
 const SearchPage = () => {
-  const [mediaType, setMediaType] = useState(mediaTypes[0]);
-  const [medias, setMedias] = useState([]);
+	const [mediaType, setMediaType] = useState(mediaTypes[0]);
+	const [medias, setMedias] = useState([]);
+	const [valueSearch, setValueSearch] = useState('');
+	const [movies, setMovies] = useState([]);
 
-  return (
-    <>
-      <Box
-        sx={{
-          margin: "auto",
-          backgroundColor: "black",
-          minHeight: "1000px",
-          padding: "100px",
-        }}
-      >
-        <Stack spacing={3}>
-          <Stack
-            spacing={5}
-            direction="row"
-            justifyContent="center"
-            sx={{ width: "100%", color: "white" }}
-          >
-            {mediaTypes.map((item, index) => (
-              <Button
-                size="large"
-                key={index}
-                sx={{
-                  color: "white",
-                }}
-                // onClick={() => onCategoryChange(item)}
-              >
-                {item}
-              </Button>
-            ))}
-          </Stack>
-          <TextField
-            color="success"
-            placeholder="Nhập tên phim..."
-            sx={{ width: "100%", border: "0.5px solid red", color: "white" }}
-            autoFocus
-            // onChange={onQueryChange}
-          />
+	const handleChangeInputSearch = (value) => {
+		setValueSearch(value);
+		debouncedHandleSearch(value);
+	};
 
-          <Grid container spacing={1} sx={{ marginRight: "-8px!important" }}>
-            {medias.map((media, index) => (
-              <Grid item xs={6} sm={4} md={3} key={index}>
-                <MediaItem media={media} mediaType={mediaType} />
-              </Grid>
-            ))}
-          </Grid>
+	const handleSearch = async (keyword) => {
+		try {
+			let response = await searchMovieApi(keyword);
+			console.log(response.movie.movieSearch);
+			setMovies(response.movie.movieSearch);
+			// setTableRows(response.movie.movieSearch);
+			// setCurrentPage(1);
+		} catch (error) {
+			console.log(error);
+		}
+	};
 
-          {/* {medias.length > 0 && (
+	const debouncedHandleSearch = debounce(handleSearch, 300);
+
+	return (
+		<>
+			<Box
+				sx={{
+					margin: 'auto',
+					backgroundColor: 'black',
+					minHeight: '1000px',
+					padding: '100px',
+				}}>
+				<Stack spacing={3}>
+					<Stack
+						spacing={5}
+						direction="row"
+						justifyContent="center"
+						sx={{ width: '100%', color: 'white' }}>
+						{mediaTypes.map((item, index) => (
+							<Button
+								size="large"
+								key={index}
+								sx={{
+									color: 'white',
+								}}
+								// onClick={() => onCategoryChange(item)}
+							>
+								{item}
+							</Button>
+						))}
+					</Stack>
+					<TextField
+						value={valueSearch}
+						onChange={(e) => handleChangeInputSearch(e.target.value)}
+						multiline
+						rows={1}
+						placeholder="Nhập tên phim:"
+						variant="outlined"
+						fullWidth
+						InputProps={{
+							sx: { color: '#ffffff' },
+						}}
+						sx={{
+							backgroundColor: '#333333',
+							'& .MuiOutlinedInput-root': {
+								'& fieldset': {
+									borderColor: '#555555',
+								},
+								'&:hover fieldset': {
+									borderColor: '#777777',
+								},
+								'&.Mui-focused fieldset': {
+									borderColor: '#ff0000',
+								},
+							},
+						}}
+					/>
+
+					<div className='flex gap-7 flex-wrap justify-between'>
+						{movies.map((movie, index) => (
+							<MediaItem
+								key={index}
+								imgUrl={movie.background}
+								score={movie.imdb}
+								title={movie.title}
+								releaseDate={movie.release}
+								movieID={movie.movieID}
+							/>
+						))}
+					</div>
+
+					{/* {medias.length > 0 && (
             <LoadingButton
               loading={onSearch}
               onClick={() => setPage(page + 1)}
@@ -156,10 +200,10 @@ const SearchPage = () => {
               load more
             </LoadingButton>
           )} */}
-        </Stack>
-      </Box>
-    </>
-  );
+				</Stack>
+			</Box>
+		</>
+	);
 };
 
 export default SearchPage;
