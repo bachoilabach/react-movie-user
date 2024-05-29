@@ -1,10 +1,12 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import {
   AppBar,
   Box,
   Button,
   IconButton,
+  Menu,
+  MenuItem,
   Stack,
   Toolbar,
   Typography,
@@ -13,14 +15,16 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import menuConfigs from "../config/menu.configs";
 import Logo from "./Logo";
-import { UserContext } from "../context/UserContext";
+// import { UserContext } from "../context/UserContext";
 
 const Header = () => {
   const navigate = useNavigate();
-  const {user} = useContext(UserContext)
+  // const {user} = useContext(UserContext)
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [scrolled, setScrolled] = useState(false);
   const [userName, setUserName] = useState()
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
 
   const handleButtonClick = (index) => {
     setSelectedIndex(index);
@@ -48,6 +52,25 @@ const Header = () => {
       setUserName(parsedUserData.account.fullName)
     }
   }, []);
+
+  const handleMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    sessionStorage.removeItem('userData');
+    setUserName(null);
+    // navigate('/login');
+  };
+
+  const handleFavorite = () => {
+    navigate('/favorite');
+    handleMenuClose();
+  };
 
   return (
     <>
@@ -109,14 +132,27 @@ const Header = () => {
 
           {/* user menu */}
           <Stack spacing={3} direction="row" alignItems="center">
-            {user ? (
-              <Typography
-                className="text-white"
-                fontWeight={600}
-                sx={{ fontSize: "16px" }}
-              >
-                {userName}
-              </Typography>
+            {userName ? (
+              <>
+                <Typography
+                  className="text-white"
+                  fontWeight={600}
+                  sx={{ fontSize: "14px", cursor: "pointer" }}
+                  onMouseEnter={handleMenuOpen}
+                >
+                  {userName}
+                </Typography>
+                <Menu
+                  anchorEl={anchorEl}
+                  open={open}
+                  onClose={handleMenuClose}
+                  MenuListProps={{ onMouseLeave: handleMenuClose }}
+                  sx={{zIndex: '9999'}}
+                >
+                  <MenuItem onClick={handleFavorite}>Favorite</MenuItem>
+                  <MenuItem onClick={handleLogout}>Log out</MenuItem>
+                </Menu>
+              </>
             ) : (
               <Button
                 className=""

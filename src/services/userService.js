@@ -6,12 +6,6 @@ const handleLoginApi = (userEmail, userPassword) => {
 	});
 };
 
-const getAllUsers = (inputID) => {
-	return axios.get(`/api/user/get-all-users?id=${inputID}`, {
-		userID: inputID,
-	});
-};
-
 const handleSignUpApi = (userEmail, userPassword,userFullName, roleID) => {
 	return axios.post('/api/user/create-new-user', {
 		email: userEmail,
@@ -30,7 +24,6 @@ const handleUpdateUserDataApi = (userData) => {
 
 export {
 	handleLoginApi,
-	getAllUsers,
 	handleSignUpApi,
 	handleUpdateUserDataApi,
 };
