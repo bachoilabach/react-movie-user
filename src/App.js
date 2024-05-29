@@ -10,6 +10,7 @@ import HomePage from "./pages/HomePage";
 import SearchPage from "./pages/SearchPage";
 import MovieDetail from "./pages/MovieDetail";
 import ActorDetail from "./pages/ActorDetail";
+import DirectorDetail from "./pages/DirectorDetail";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -25,6 +26,7 @@ function App() {
             <Route index element={<HomePage />} />
             <Route path="/movie/:id" element={<MovieDetail />} />
             <Route path="/actor/:id" element={<ActorDetail />} />
+            <Route path="/director/:id" element={<DirectorDetail />} />
             <Route path="/search" element={<SearchPage />} />
             <Route path="/movie" element={<ListMovie />} />
           </Route>

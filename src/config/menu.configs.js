@@ -1,6 +1,5 @@
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import SlideshowOutlinedIcon from "@mui/icons-material/SlideshowOutlined";
-import LiveTvOutlinedIcon from "@mui/icons-material/LiveTvOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import RateReviewOutlinedIcon from "@mui/icons-material/RateReviewOutlined";
@@ -15,16 +14,10 @@ const main = [
     state: "home"
   },
   {
-    display: "Phim lẻ",
+    display: "Danh sách phim",
     path: "/movie",
     icon: <SlideshowOutlinedIcon />,
     state: "movie"
-  },
-  {
-    display: "Phim bộ",
-    path: "/tv",
-    icon: <LiveTvOutlinedIcon />,
-    state: "tv"
   },
   {
     display: "Tìm kiếm",

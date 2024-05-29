@@ -5,22 +5,27 @@ import {
   FormControl,
   InputLabel,
   Box,
-  Button,
-  AppBar,
   Toolbar,
-  Typography,
 } from "@mui/material";
+import MediaGrid from "../components/MediaGrid";
 
 function ListMovie() {
   return (
-    <AppBar position="static" className="pt-[200px]">
-      <Toolbar className="bg-[#091C2D]">
-        <Box sx={{ flexGrow: 1, display: "flex", gap: 2 }}>
+    <div className="pt-[100px] bg-black flex flex-col justify-center items-center">
+      <Toolbar className="bg-[#091C2D] min-w-[80%] px-9 py-6 rounded-lg">
+        <Box
+          sx={{
+            flexGrow: 1,
+            display: "flex",
+            justifyContent: "space-around",
+            gap: 2,
+          }}
+        >
           {/* genremovie */}
           <FormControl
             variant="filled"
             sx={{
-              minWidth: 120,
+              minWidth: 180,
               backgroundColor: "white",
               borderRadius: "5px",
             }}
@@ -40,7 +45,11 @@ function ListMovie() {
           {/* genre */}
           <FormControl
             variant="filled"
-            sx={{ minWidth: 120, backgroundColor: "white" }}
+            sx={{
+              minWidth: 180,
+              backgroundColor: "white",
+              borderRadius: "5px",
+            }}
           >
             <InputLabel id="genre-label">Thể loại</InputLabel>
             <Select
@@ -58,7 +67,11 @@ function ListMovie() {
           {/* national */}
           <FormControl
             variant="filled"
-            sx={{ minWidth: 120, backgroundColor: "white" }}
+            sx={{
+              minWidth: 180,
+              backgroundColor: "white",
+              borderRadius: "5px",
+            }}
           >
             <InputLabel id="national-label">Quốc gia</InputLabel>
             <Select
@@ -78,7 +91,11 @@ function ListMovie() {
           {/* release Date */}
           <FormControl
             variant="filled"
-            sx={{ minWidth: 120, backgroundColor: "white" }}
+            sx={{
+              minWidth: 180,
+              backgroundColor: "white",
+              borderRadius: "5px",
+            }}
           >
             <InputLabel id="releaseDate-label">Năm phát hành</InputLabel>
             <Select
@@ -100,7 +117,10 @@ function ListMovie() {
           </FormControl>
         </Box>
       </Toolbar>
-    </AppBar>
+      <div className=" flex flex-row justify-center items-center">
+        <MediaGrid/>
+      </div>
+    </div>
   );
 }
 

@@ -96,7 +96,7 @@ const movies = [
   },
 ];
 
-const mediaTypes = ["Tìm kiếm phim", "Tìm kiếm diễn viên"];
+const mediaTypes = ["Tìm kiếm phim", "Tìm kiếm diễn viên", "Tìm kiếm đạo diễn"];
 
 const SearchPage = () => {
   const [mediaType, setMediaType] = useState(mediaTypes[0]);
