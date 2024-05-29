@@ -6,7 +6,9 @@ import {
   Button,
   IconButton,
   Menu,
-  MenuItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
   Stack,
   Toolbar,
   Typography,
@@ -15,14 +17,13 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import menuConfigs from "../config/menu.configs";
 import Logo from "./Logo";
-// import { UserContext } from "../context/UserContext";
 
 const Header = () => {
   const navigate = useNavigate();
   // const {user} = useContext(UserContext)
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [scrolled, setScrolled] = useState(false);
-  const [userName, setUserName] = useState()
+  const [userName, setUserName] = useState();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
@@ -46,10 +47,10 @@ const Header = () => {
   }, []);
 
   useEffect(() => {
-    const userData = sessionStorage.getItem('userData')
-    if(userData){
-      const parsedUserData = JSON.parse(userData)
-      setUserName(parsedUserData.account.fullName)
+    const userData = sessionStorage.getItem("userData");
+    if (userData) {
+      const parsedUserData = JSON.parse(userData);
+      setUserName(parsedUserData.account.fullName);
     }
   }, []);
 
@@ -61,16 +62,16 @@ const Header = () => {
     setAnchorEl(null);
   };
 
-  const handleLogout = () => {
-    sessionStorage.removeItem('userData');
-    setUserName(null);
-    // navigate('/login');
-  };
+  // const handleLogout = () => {
+  //   sessionStorage.removeItem("userData");
+  //   setUserName(null);
+  //   // navigate('/login');
+  // };
 
-  const handleFavorite = () => {
-    navigate('/favorite');
-    handleMenuClose();
-  };
+  // const handleFavorite = () => {
+  //   navigate("/favorite");
+  //   handleMenuClose();
+  // };
 
   return (
     <>
@@ -115,7 +116,7 @@ const Header = () => {
                 style={{
                   backgroundColor:
                     selectedIndex === index ? "red" : "transparent",
-                  margin: '0px 5px'
+                  margin: "0px 5px",
                 }}
               >
                 <Typography
@@ -131,13 +132,18 @@ const Header = () => {
           {/* main menu */}
 
           {/* user menu */}
-          <Stack spacing={3} direction="row" alignItems="center">
+          <Stack
+            spacing={3}
+            direction="row"
+            alignItems="center"
+            sx={{ marginRight: "10px" }}
+          >
             {userName ? (
               <>
                 <Typography
                   className="text-white"
-                  fontWeight={600}
-                  sx={{ fontSize: "14px", cursor: "pointer" }}
+                  fontWeight={700}
+                  sx={{ fontSize: "18px", cursor: "pointer" }}
                   onMouseEnter={handleMenuOpen}
                 >
                   {userName}
@@ -147,10 +153,28 @@ const Header = () => {
                   open={open}
                   onClose={handleMenuClose}
                   MenuListProps={{ onMouseLeave: handleMenuClose }}
-                  sx={{zIndex: '9999'}}
+                  sx={{ zIndex: "9999" }}
                 >
-                  <MenuItem onClick={handleFavorite}>Favorite</MenuItem>
-                  <MenuItem onClick={handleLogout}>Log out</MenuItem>
+                  {/* <ListItemButton onClick={handleFavorite}>Favorite</ListItemButton>
+                  <ListItemButton onClick={handleLogout}>Log out</ListItemButton> */}
+                  {menuConfigs.user.map((item, index) => (
+                    <ListItemButton
+                      component={Link}
+                      to={item.path}
+                      key={index}
+                      // onClick={() => setAnchorEl(null)}
+                    >
+                      <ListItemIcon>{item.icon}</ListItemIcon>
+                      <ListItemText
+                        disableTypography
+                        primary={
+                          <Typography textTransform="uppercase">
+                            {item.display}
+                          </Typography>
+                        }
+                      />
+                    </ListItemButton>
+                  ))}
                 </Menu>
               </>
             ) : (

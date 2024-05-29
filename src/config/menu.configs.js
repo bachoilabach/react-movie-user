@@ -5,6 +5,7 @@ import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import RateReviewOutlinedIcon from "@mui/icons-material/RateReviewOutlined";
 import LockResetOutlinedIcon from "@mui/icons-material/LockResetOutlined";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 const main = [
   {
@@ -51,6 +52,13 @@ const user = [
     path: "/password-update",
     icon: <LockResetOutlinedIcon />,
     state: "password.update"
+  }
+  ,
+  {
+    display: "Đăng xuất",
+    path: "/",
+    icon: <LogoutIcon />,
+    state: "logout"
   }
 ];
 
