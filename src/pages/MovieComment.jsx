@@ -41,6 +41,7 @@ function MovieComment({ movieID }) {
 	const fetchComment = async () => {
 		try {
 			const response = await getCommentByMoviID(movieID);
+			console.log(response)
 			setComments(response.comments);
 		} catch (error) {
 			console.log(error);

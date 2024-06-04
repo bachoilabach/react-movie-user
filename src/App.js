@@ -33,7 +33,7 @@ function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
-      <ToastContainer />
+      <ToastContainer stacked={true}  theme="dark" position="bottom-left"/>
     </>
   );
 }

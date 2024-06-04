@@ -62,11 +62,11 @@ const Header = () => {
     setAnchorEl(null);
   };
 
-  // const handleLogout = () => {
-  //   sessionStorage.removeItem("userData");
-  //   setUserName(null);
-  //   // navigate('/login');
-  // };
+  const handleLogout = () => {
+    sessionStorage.removeItem("userData");
+    setUserName(null);
+    navigate('/login');
+  };
 
   // const handleFavorite = () => {
   //   navigate("/favorite");
@@ -162,7 +162,11 @@ const Header = () => {
                       component={Link}
                       to={item.path}
                       key={index}
-                      // onClick={() => setAnchorEl(null)}
+                      onClick={()=> {
+                        if(index === 4){
+                          handleLogout()
+                        }
+                      }}
                     >
                       <ListItemIcon>{item.icon}</ListItemIcon>
                       <ListItemText

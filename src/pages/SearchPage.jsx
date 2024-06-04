@@ -113,7 +113,6 @@ const SearchPage = () => {
 	const handleSearch = async (keyword) => {
 		try {
 			let response = await searchMovieApi(keyword);
-			console.log(response.movie.movieSearch);
 			setMovies(response.movie.movieSearch);
 			// setTableRows(response.movie.movieSearch);
 			// setCurrentPage(1);
@@ -179,7 +178,7 @@ const SearchPage = () => {
 						}}
 					/>
 
-					<div className='flex gap-7 flex-wrap justify-between'>
+					<div className='flex gap-7 flex-wrap'>
 						{movies.map((movie, index) => (
 							<MediaItem
 								key={index}

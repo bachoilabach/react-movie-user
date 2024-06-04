@@ -58,7 +58,7 @@ const user = [
     display: "Đăng xuất",
     path: "/",
     icon: <LogoutIcon />,
-    state: "logout"
+    state: "logout",
   }
 ];
 
