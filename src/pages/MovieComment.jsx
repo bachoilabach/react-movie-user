@@ -24,8 +24,8 @@ function MovieComment({ movieID }) {
 	const [comments, setComments] = useState([]);
 	const [visibleComments, setVisibleComments] = useState(3);
 	const [userName, setUserName] = useState('');
-  const [userEmail, setUserEmail] = useState('')
-  const [content, setContent] = useState('')
+	const [userEmail, setUserEmail] = useState('');
+	const [content, setContent] = useState('');
 	const commentLength = comments.length;
 
 	const loadMoreComments = () => {
@@ -47,11 +47,11 @@ function MovieComment({ movieID }) {
 		}
 	};
 
-  const createComment = async () => {
+	const createComment = async () => {
 		try {
 			const newComment = await handleCreateComment(userEmail, movieID, content);
-			setComments([...comments, newComment.createdComment]); 
-			setContent(''); 
+			setComments([...comments, newComment.createdComment]);
+			setContent('');
 			toast.success('Comment thành công');
 		} catch (error) {
 			console.log(error);
@@ -69,9 +69,7 @@ function MovieComment({ movieID }) {
 					<Typography variant="h6" fontWeight="700">
 						{comment.userName}
 					</Typography>
-					<Typography fontSize={13}>
-						{comment.commentDate}
-					</Typography>
+					<Typography fontSize={13}>{comment.commentDate}</Typography>
 					<Typography variant="h6">{comment.content}</Typography>
 				</ListItemText>
 			</ListItem>
@@ -89,9 +87,9 @@ function MovieComment({ movieID }) {
 				];
 			setUserName(lastName);
 
-      const email = parsedUserData.account.email
-      setUserEmail(email)
-    }
+			const email = parsedUserData.account.email;
+			setUserEmail(email);
+		}
 	}, [movieID || comments]);
 
 	return (
@@ -127,31 +125,31 @@ function MovieComment({ movieID }) {
 									{userName}
 								</Typography>
 								<TextField
-                  value={content}
-                  onChange={(e) => setContent(e.target.value)}
-                  multiline
-                  rows={4}
-                  placeholder="Viết bình luận của bạn"
-                  variant="outlined"
-                  fullWidth
-                  InputProps={{
-                    sx: { color: '#ffffff' }, 
-                  }}
-                  sx={{
-                    backgroundColor: '#333333', 
-                    '& .MuiOutlinedInput-root': {
-                      '& fieldset': {
-                        borderColor: '#555555', 
-                      },
-                      '&:hover fieldset': {
-                        borderColor: '#777777', 
-                      },
-                      '&.Mui-focused fieldset': {
-                        borderColor: '#ff0000', 
-                      },
-                    },
-                  }}
-                />
+									value={content}
+									onChange={(e) => setContent(e.target.value)}
+									multiline
+									rows={4}
+									placeholder="Viết bình luận của bạn"
+									variant="outlined"
+									fullWidth
+									InputProps={{
+										sx: { color: '#ffffff' },
+									}}
+									sx={{
+										backgroundColor: '#333333',
+										'& .MuiOutlinedInput-root': {
+											'& fieldset': {
+												borderColor: '#555555',
+											},
+											'&:hover fieldset': {
+												borderColor: '#777777',
+											},
+											'&.Mui-focused fieldset': {
+												borderColor: '#ff0000',
+											},
+										},
+									}}
+								/>
 								<Button
 									variant="contained"
 									size="large"
@@ -164,16 +162,13 @@ function MovieComment({ movieID }) {
 										},
 									}}
 									startIcon={<SendOutlinedIcon />}
-                  onClick={()=>createComment(userEmail,movieID,content)}
-                >
+									onClick={() => createComment(userEmail, movieID, content)}>
 									Đăng
 								</Button>
 							</Stack>
 						</>
 					) : (
-						<div>
-              Nếu bạn muốn comment hãy đăng nhập
-            </div>
+						<div>Nếu bạn muốn comment hãy đăng nhập</div>
 					)}
 				</Stack>
 			</Container>

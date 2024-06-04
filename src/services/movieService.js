@@ -32,17 +32,23 @@ const getAllActorsMovie = (id) => {
 	});
 };
 
-const getMoviesByActorID = (id)=>{
-	return axios.get(`/api/movie/get-movies-actorID?id=${id}`,{
-		actorID: id
-	})
-}
+const getMoviesByActorID = (id) => {
+	return axios.get(`/api/movie/get-movies-actorID?id=${id}`, {
+		actorID: id,
+	});
+};
 
-const getCommentByMoviID = (id)=>{
-	return axios.get(`/api/comment/get-comment-by-movieID?id=${id}`,{
-		movieID: id
-	})
-}
+const getCommentByMoviID = (id) => {
+	return axios.get(`/api/comment/get-comment-by-movieID?id=${id}`, {
+		movieID: id,
+	});
+};
+
+const searchMovieApi = (keyword) => {
+	return axios.get(`/api/movie/get-search-movie?keyword=${keyword}`, {
+		keyword: keyword,
+	});
+};
 
 export {
 	handleGetMovieByImdb,
@@ -52,5 +58,6 @@ export {
 	getAllCountries,
 	getAllActorsMovie,
 	getMoviesByActorID,
-	getCommentByMoviID
+	getCommentByMoviID,
+	searchMovieApi,
 };

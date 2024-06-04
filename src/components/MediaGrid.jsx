@@ -20,7 +20,7 @@ const MediaGrid = () => {
   }, []);
 
   return (
-    <Grid container sx={{ width: "80%", gap: "16px" }}>
+    <Grid container sx={{ width: "85%",gap: '10px', justifyContent: 'space-between' }}>
       {movies.map((movie, index) => (
         <Grid key={index} sx={{}}>
           <MediaItem
