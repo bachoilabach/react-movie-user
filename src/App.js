@@ -8,6 +8,7 @@ import ListMovie from "./pages/ListMovie";
 import ForgotPwPage from "../src/pages/ForgotPwPage";
 import HomePage from "./pages/HomePage";
 import SearchPage from "./pages/SearchPage";
+import FavoritePage from "./pages/FavoritesPage"
 import MovieDetail from "./pages/MovieDetail";
 import ActorDetail from "./pages/ActorDetail";
 import DirectorDetail from "./pages/DirectorDetail";
@@ -29,6 +30,7 @@ function App() {
             <Route path="/director/:id" element={<DirectorDetail />} />
             <Route path="/search" element={<SearchPage />} />
             <Route path="/movie" element={<ListMovie />} />
+            <Route path="/favorites" element={<FavoritePage />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
