@@ -60,12 +60,13 @@ function MovieComment({ movieID }) {
 	};
 
 	const renderComment = (comment) => {
+		const lastName = comment.userName.split(' ')[comment.userName.split(' ').length - 1];
 		return (
 			<ListItem
 				alignItems="flex-start"
 				key={userName + comment.commentDate}
 				className="hover:bg-blue-700">
-				{renderAvatar(userName)}
+				{renderAvatar(lastName)}
 				<ListItemText>
 					<Typography variant="h6" fontWeight="700">
 						{comment.userName}

@@ -1,101 +1,8 @@
 import { Box, Button, Stack, TextField, Grid, debounce } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import MediaItem from '../components/MediaItem';
-import { searchMovieApi } from '../services/movieService';
-
-const movies = [
-	{
-		title: 'Godzilla x Kong: The New Empire',
-		releaseDate: '2024',
-		score: '8',
-		imgUrl: 'https://image.tmdb.org/t/p/w500/tMefBSflR6PGQLv7WvFPpKLZkyk.jpg',
-	},
-	{
-		title: 'Godzilla x Kong: The New Empire',
-		releaseDate: '2024',
-		score: '8',
-		imgUrl: 'https://image.tmdb.org/t/p/w500/tMefBSflR6PGQLv7WvFPpKLZkyk.jpg',
-	},
-	{
-		title: 'Godzilla x Kong: The New Empire',
-		releaseDate: '2024',
-		score: '8',
-		imgUrl: 'https://image.tmdb.org/t/p/w500/tMefBSflR6PGQLv7WvFPpKLZkyk.jpg',
-	},
-	{
-		title: 'Godzilla x Kong: The New Empire',
-		releaseDate: '2024',
-		score: '8',
-		imgUrl: 'https://image.tmdb.org/t/p/w500/tMefBSflR6PGQLv7WvFPpKLZkyk.jpg',
-	},
-	{
-		title: 'Godzilla x Kong: The New Empire',
-		releaseDate: '2024',
-		score: '8',
-		imgUrl: 'https://image.tmdb.org/t/p/w500/tMefBSflR6PGQLv7WvFPpKLZkyk.jpg',
-	},
-	{
-		title: 'Godzilla x Kong: The New Empire',
-		releaseDate: '2024',
-		score: '8',
-		imgUrl: 'https://image.tmdb.org/t/p/w500/tMefBSflR6PGQLv7WvFPpKLZkyk.jpg',
-	},
-	{
-		title: 'Godzilla x Kong: The New Empire',
-		releaseDate: '2024',
-		score: '8',
-		imgUrl: 'https://image.tmdb.org/t/p/w500/tMefBSflR6PGQLv7WvFPpKLZkyk.jpg',
-	},
-	{
-		title: 'Godzilla x Kong: The New Empire',
-		releaseDate: '2024',
-		score: '8',
-		imgUrl: 'https://image.tmdb.org/t/p/w500/tMefBSflR6PGQLv7WvFPpKLZkyk.jpg',
-	},
-	{
-		title: 'Godzilla x Kong: The New Empire',
-		releaseDate: '2024',
-		score: '8',
-		imgUrl: 'https://image.tmdb.org/t/p/w500/tMefBSflR6PGQLv7WvFPpKLZkyk.jpg',
-	},
-	{
-		title: 'Godzilla x Kong: The New Empire',
-		releaseDate: '2024',
-		score: '8',
-		imgUrl: 'https://image.tmdb.org/t/p/w500/tMefBSflR6PGQLv7WvFPpKLZkyk.jpg',
-	},
-	{
-		title: 'Godzilla x Kong: The New Empire',
-		releaseDate: '2024',
-		score: '8',
-		imgUrl: 'https://image.tmdb.org/t/p/w500/tMefBSflR6PGQLv7WvFPpKLZkyk.jpg',
-	},
-	{
-		title: 'Godzilla x Kong: The New Empire',
-		releaseDate: '2024',
-		score: '8',
-		imgUrl: 'https://image.tmdb.org/t/p/w500/tMefBSflR6PGQLv7WvFPpKLZkyk.jpg',
-	},
-	{
-		title: 'Godzilla x Kong: The New Empire',
-		releaseDate: '2024',
-		score: '8',
-		imgUrl: 'https://image.tmdb.org/t/p/w500/tMefBSflR6PGQLv7WvFPpKLZkyk.jpg',
-	},
-	{
-		title: 'Godzilla x Kong: The New Empire',
-		releaseDate: '2024',
-		score: '8',
-		imgUrl: 'https://image.tmdb.org/t/p/w500/tMefBSflR6PGQLv7WvFPpKLZkyk.jpg',
-	},
-	{
-		title: 'Godzilla x Kong: The New Empire',
-		releaseDate: '2024',
-		score: '8',
-		imgUrl: 'https://image.tmdb.org/t/p/w500/tMefBSflR6PGQLv7WvFPpKLZkyk.jpg',
-	},
-];
+import { getAllMovies, searchMovieApi } from '../services/movieService';
 
 const mediaTypes = ['Tìm kiếm phim', 'Tìm kiếm diễn viên', 'Tìm kiếm đạo diễn'];
 
@@ -121,7 +28,16 @@ const SearchPage = () => {
 		}
 	};
 
+	const fecthMovie = async () => {
+		const res = await getAllMovies('ALL');
+		setMovies(res.movies)
+	};
+
 	const debouncedHandleSearch = debounce(handleSearch, 300);
+
+	useEffect(() => {
+		fecthMovie()
+	}, []);
 
 	return (
 		<>
@@ -178,7 +94,7 @@ const SearchPage = () => {
 						}}
 					/>
 
-					<div className='flex gap-7 flex-wrap'>
+					<div className="flex gap-7 flex-wrap">
 						{movies.map((movie, index) => (
 							<MediaItem
 								key={index}
