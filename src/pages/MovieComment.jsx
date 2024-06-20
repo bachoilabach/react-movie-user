@@ -41,7 +41,6 @@ function MovieComment({ movieID }) {
 	const fetchComment = async () => {
 		try {
 			const response = await getCommentByMoviID(movieID);
-			console.log(response)
 			setComments(response.comments);
 		} catch (error) {
 			console.log(error);
@@ -60,7 +59,8 @@ function MovieComment({ movieID }) {
 	};
 
 	const renderComment = (comment) => {
-		const lastName = comment.userName.split(' ')[comment.userName.split(' ').length - 1];
+		const lastName =
+			comment.userName.split(' ')[comment.userName.split(' ').length - 1];
 		return (
 			<ListItem
 				alignItems="flex-start"
@@ -170,7 +170,12 @@ function MovieComment({ movieID }) {
 							</Stack>
 						</>
 					) : (
-						<div>Nếu bạn muốn comment hãy đăng nhập</div>
+						<div>
+							Nếu bạn muốn comment hãy{' '}
+							<a href="/login" className="text-[#ff0000]">
+								đăng nhập
+							</a>
+						</div>
 					)}
 				</Stack>
 			</Container>

@@ -23,7 +23,11 @@ import { getAllActors } from '../services/actorService';
 import MediaSlider from '../components/MediaSlider';
 import { UserContext } from '../context/UserContext';
 import { toast } from 'react-toastify';
-import { handleAddFavouriteMovie, handleDeleteFavouriteMovie } from '../services/userService';
+import {
+	handleAddFavouriteMovie,
+	handleDeleteFavouriteMovie,
+	handleGetFavouriteMovie,
+} from '../services/userService';
 
 const MediaDetail = () => {
 	const { id } = useParams();
@@ -32,7 +36,8 @@ const MediaDetail = () => {
 	const [director, setDirector] = useState();
 	const [country, setCountry] = useState();
 	const [actors, setActors] = useState([]);
-	const [clickFavour, setCliickFavour] = useState(false);
+	const [clickFavour, setClickFavour] = useState(false);
+	const [favourite, setFavourite] = useState(false);
 
 	const userData = sessionStorage.getItem('userData');
 	if (userData) {
@@ -83,24 +88,35 @@ const MediaDetail = () => {
 		await handleAddFavouriteMovie(email, id);
 	};
 
-	const deleteFavouriteMovie = async()=>{
+	const deleteFavouriteMovie = async () => {
 		toast.info('Đã xóa khỏi danh sách yêu thích');
-		await handleDeleteFavouriteMovie(email,id)
-	}
+		await handleDeleteFavouriteMovie(email, id);
+	};
 
 	const onClickFavour = () => {
 		if (userData) {
-			setCliickFavour(!clickFavour);
-			clickFavour === false
-				? addFavouriteMovie()
-				: deleteFavouriteMovie()
+			setClickFavour(!clickFavour);
+			clickFavour === false ? addFavouriteMovie() : deleteFavouriteMovie();
 		} else {
 			toast.warn('Bạn cần đăng nhập để thực hiện chức năng này!');
 		}
 	};
 
+	const favouriteMovie = async () => {
+		const response = await handleGetFavouriteMovie(email);
+		
+		const arr = response.favourMovies;
+		const idExists = arr.some((ele) => ele.movieID === Number(id));
+		if (idExists) {
+			setClickFavour(true)
+		} else {
+			setClickFavour(false)
+		}
+	};
+
 	useEffect(() => {
 		fetchMovieById();
+		favouriteMovie();
 	}, [id]);
 
 	return (
