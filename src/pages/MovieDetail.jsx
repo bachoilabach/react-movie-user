@@ -31,13 +31,11 @@ import {
 
 const MediaDetail = () => {
 	const { id } = useParams();
-	const { user } = useContext(UserContext);
 	const [movie, setMovie] = useState({});
 	const [director, setDirector] = useState();
 	const [country, setCountry] = useState();
 	const [actors, setActors] = useState([]);
 	const [clickFavour, setClickFavour] = useState(false);
-	const [favourite, setFavourite] = useState(false);
 
 	const userData = sessionStorage.getItem('userData');
 	if (userData) {
@@ -63,19 +61,17 @@ const MediaDetail = () => {
 			setCountry(responseCountry.countries.countryName);
 
 			// * Actor
-			// Fetch actors for the movie
+
 			const responseActor = await getAllActorsMovie(id);
 			const actorIDs = responseActor.movieactors.map((actor) => actor.actorID);
 
-			// Fetch details for each actor concurrently
 			const actorsDetails = await Promise.all(
 				actorIDs.map(async (actorID) => {
 					const responseActorsMovie = await getAllActors(actorID);
-					return responseActorsMovie.actors; // Adjust this line if response is structured differently
+					return responseActorsMovie.actors;
 				})
 			);
 
-			// Flatten the array if getAllActors returns arrays
 			const flattenedActors = actorsDetails.flat();
 			setActors(flattenedActors);
 		} catch (error) {
@@ -104,13 +100,13 @@ const MediaDetail = () => {
 
 	const favouriteMovie = async () => {
 		const response = await handleGetFavouriteMovie(email);
-		
+
 		const arr = response.favourMovies;
 		const idExists = arr.some((ele) => ele.movieID === Number(id));
 		if (idExists) {
-			setClickFavour(true)
+			setClickFavour(true);
 		} else {
-			setClickFavour(false)
+			setClickFavour(false);
 		}
 	};
 

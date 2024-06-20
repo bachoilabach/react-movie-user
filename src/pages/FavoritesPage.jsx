@@ -1,53 +1,36 @@
 import React, { useEffect } from 'react';
-
-import { Box, Divider, Stack, Typography, Button } from '@mui/material';
 import { useState } from 'react';
-import Container from '../components/Container';
-import CircularRate from '../components/CircularRate';
-import { handleGetFavouriteMovie } from '../services/userService';
-
-const moviesList = [
-	{
-		id: 1,
-		poster: 'https://image.tmdb.org/t/p/w500/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg',
-		title: 'Spider-Man: No Way Home ',
-		director: 'Jon Watts',
-		genre: 'Hành Động, Viễn Tưởng',
-		rating: 8.2,
-	},
-	{
-		id: 2,
-		poster: 'https://image.tmdb.org/t/p/w500/74xTEgt7R36Fpooo50r9T25onhq.jpg',
-		title: 'The Batman',
-		director: 'Matt Reeves',
-		genre: 'Hành Động, Trinh thám',
-		rating: 7.2,
-	},
-	{
-		id: 3,
-		poster: 'https://image.tmdb.org/t/p/w500/1pdfLvkbY9ohJlCjQH2CZjjYVvJ.jpg',
-		title: 'Dune: Part Two',
-		director: 'Denis Villeneuve',
-		genre: 'Hành Động, Viễn Tưởng',
-		rating: 9.2,
-	},
-];
+import {
+	handleDeleteFavouriteMovie,
+	handleGetFavouriteMovie,
+} from '../services/userService';
+import MediaItem from '../components/MediaItem';
+import { toast } from 'react-toastify';
 
 function FavoritesPage() {
-	const [movies, setMovies] = useState(moviesList);
-
-	const count = moviesList.length;
+	const [movies, setMovies] = useState([]);
+	const [clickBtn, setClickBtn] = useState(false);
 
 	const userData = sessionStorage.getItem('userData');
+	if (userData) {
+		const parsedUserData = JSON.parse(userData);
+		var userEmail = parsedUserData.account.email;
+	}
 	const fetchFavouriteMovie = async () => {
 		if (userData) {
-			const parsedUserData = JSON.parse(userData);
-			const userEmail = parsedUserData.account.email;
 			const response = await handleGetFavouriteMovie(userEmail);
-			console.log(response);
+			setMovies(response.favourMoviesDetail);
+			console.log(response.favourMoviesDetail);
 		} else {
-			console.log(1);
+			console.log('Bạn chưa đăng nhập');
 		}
+	};
+
+	const deleteMovie = async (movieID) => {
+		setClickBtn(!clickBtn);
+		await handleDeleteFavouriteMovie(userEmail, movieID);
+		toast.success('Đã xóa phim yêu thích');
+		fetchFavouriteMovie();
 	};
 
 	useEffect(() => {
@@ -57,76 +40,37 @@ function FavoritesPage() {
 	return (
 		<>
 			{userData ? (
-				<Box
-					sx={{
-						width: '100%',
-						margin: 'auto',
-						padding: 10,
-						backgroundColor: 'black',
-					}}>
-					<Container header={`Danh sách phim ưa thích: (${count})`}>
-						<Stack spacing={3}>
-							{movies.map((item) => (
-								<Box key={item.id}>
-									<Box
-										sx={{
-											width: '100%',
-											height: '226.875px',
-											padding: '8px',
-											display: 'flex',
-											flexDirection: 'row',
-											justifyContent: 'space-between',
-											'&:hover': {
-												backgroundColor: '#131313',
-											},
-										}}>
-										<Box
-											sx={{
-												display: 'flex',
-												flexDirection: 'row',
-												gap: '32px',
-											}}>
-											<Box
-												sx={{
-													position: 'relative',
-													backgroundSize: 'cover',
-													backgroundPosition: 'center',
-													backgroundColor: 'darkgrey',
-													backgroundImage: ` url(${item.poster})`,
-													width: '131.8px',
-													height: '210.875px',
-												}}
-											/>
-											<Stack spacing={2}>
-												<Typography color="white" variant="h6">
-													{item.title}
-												</Typography>
-												<Typography color="white" variant="body1">
-													{item.director}
-												</Typography>
-												<Typography color="white" variant="caption">
-													{item.genre}
-												</Typography>
-												<CircularRate value={item.rating} />
-											</Stack>
-										</Box>
-										<Button variant="contained">Xoá</Button>
-									</Box>
-
-									<Divider
-										sx={{
-											display: { xs: 'block', md: 'none' },
-										}}
-									/>
-								</Box>
-							))}
-						</Stack>
-					</Container>
-				</Box>
+				<div className="px-24 py-14 flex flex-wrap gap-[42px] bg-black">
+					{movies.length === 0 ? (
+						<div className="h-[476px] bg-black w-[100%] p-6">
+							<p className="text-white pt-8 text-lg">
+								Bạn không có phim nào trong danh sách yêu thích
+							</p>
+						</div>
+					) : (
+						movies.map((movie, index) => (
+							<div>
+								<MediaItem
+									key={index}
+									imgUrl={movie.background}
+									score={movie.imdb}
+									title={movie.title}
+									releaseDate={movie.release}
+									movieID={movie.movieID}
+								/>
+								<button
+									className="bg-[#ff0000] w-full text-white text-lg rounded-md py-1 hover:opacity-85"
+									onClick={() => deleteMovie(movie.movieID)}>
+									Xóa
+								</button>
+							</div>
+						))
+					)}
+				</div>
 			) : (
 				<div className="h-[476px] bg-black w-[100%] p-6">
 					<p className="text-white pt-8 text-lg">
-						Nếu bạn muốn xem danh sách phim yêu thích hãy {' '}
+						Nếu bạn muốn xem danh sách phim yêu thích hãy{' '}
 						<a href="/login" className="text-[#ff0000]">
 							đăng nhập
 						</a>
