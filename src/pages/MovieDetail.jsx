@@ -102,11 +102,13 @@ const MediaDetail = () => {
 		const response = await handleGetFavouriteMovie(email);
 
 		const arr = response.favourMovies;
-		const idExists = arr.some((ele) => ele.movieID === Number(id));
-		if (idExists) {
-			setClickFavour(true);
-		} else {
-			setClickFavour(false);
+		if (userData) {
+			const idExists = arr.some((ele) => ele.movieID === Number(id));
+			if (idExists) {
+				setClickFavour(true);
+			} else {
+				setClickFavour(false);
+			}
 		}
 	};
 
