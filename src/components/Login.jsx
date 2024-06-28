@@ -41,13 +41,14 @@ export default function Login() {
 				setErrMessage(response.message);
 			} else {
 				// Lưu thông tin người dùng vào localStorage hoặc trong global state
+				const userID = response.user.userID
 				const email = response.user.email;
 				const roleID = response.user.roleID;
 				const fullName = response.user.fullName;
 				let data = {
 					isAuthenticated: true,
 					token: response.access_token,
-					account: { email, roleID, fullName },
+					account: {userID, email, roleID, fullName },
 				};
 				localStorage.setItem('jwt', response.access_token);
 				localStorage.setItem('userData',  JSON.stringify(data))

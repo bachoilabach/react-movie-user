@@ -3,7 +3,7 @@ import Container from '../components/Container';
 
 import SendOutlinedIcon from '@mui/icons-material/SendOutlined';
 import TextAvatar from '../components/TextAvatar';
-
+import DeleteIcon from '@mui/icons-material/Delete';
 import {
 	Button,
 	Stack,
@@ -16,7 +16,7 @@ import {
 } from '@mui/material';
 import { getCommentByMoviID } from '../services/movieService';
 import { UserContext } from '../context/UserContext';
-import { handleCreateComment } from '../services/commentService';
+import { handleCreateComment, handleDeleteComment } from '../services/commentService';
 import { toast } from 'react-toastify';
 
 function MovieComment({ movieID }) {
@@ -26,6 +26,7 @@ function MovieComment({ movieID }) {
 	const [userName, setUserName] = useState('');
 	const [userEmail, setUserEmail] = useState('');
 	const [content, setContent] = useState('');
+	const [userID, setUserID] = useState();
 	const commentLength = comments.length;
 
 	const loadMoreComments = () => {
@@ -58,14 +59,23 @@ function MovieComment({ movieID }) {
 		}
 	};
 
+	const deleteComment = async(commentID)=>{
+		try {
+			await handleDeleteComment(commentID)
+			fetchComment()
+			toast.success('Xóa bình luận thành công')
+		} catch (error) {
+			console.log(error)
+		}
+	}
+
 	const renderComment = (comment) => {
 		const lastName =
 			comment.userName.split(' ')[comment.userName.split(' ').length - 1];
 		return (
 			<ListItem
-				alignItems="flex-start"
 				key={userName + comment.commentDate}
-				className="hover:bg-blue-700">
+				className="hover:bg-[#131313]">
 				{renderAvatar(lastName)}
 				<ListItemText>
 					<Typography variant="h6" fontWeight="700">
@@ -74,6 +84,14 @@ function MovieComment({ movieID }) {
 					<Typography fontSize={13}>{comment.commentDate}</Typography>
 					<Typography variant="h6">{comment.content}</Typography>
 				</ListItemText>
+				{comment.userID === userID ? (
+					<button className="bg-[#ff0000] px-4 py-1 rounded-sm hover:opacity-85 items-center flex text-base" onClick={()=>deleteComment(comment.commentID)}>
+						<DeleteIcon fontSize="small" />
+						Xóa
+					</button>
+				) : (
+					<></>
+				)}
 			</ListItem>
 		);
 	};
@@ -91,6 +109,8 @@ function MovieComment({ movieID }) {
 
 			const email = parsedUserData.account.email;
 			setUserEmail(email);
+
+			setUserID(parsedUserData.account.userID);
 		}
 	}, [movieID || comments]);
 

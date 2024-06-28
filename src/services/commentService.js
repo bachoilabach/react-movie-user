@@ -8,6 +8,15 @@ const handleCreateComment = (email, movieID, content) => {
 	});
 };
 
+const handleDeleteComment = (commentID)=>{
+	return axios.delete('/api/comment/delete-comment',{
+		data: {
+			id: commentID
+		}
+	})
+}
+
 export {
-    handleCreateComment
+    handleCreateComment,
+	handleDeleteComment
 }
